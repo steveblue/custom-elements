@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "module": "ES2015",
+    "outDir": "./dist",
+    "target": "ES2015"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
