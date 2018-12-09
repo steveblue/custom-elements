@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "mkdir dist && mkdir dist/style",
     "start": "node index.js"
   },
   "repository": {
@@ -28,10 +29,19 @@
     "url": "https://github.com/steveblue/custom-elements/issues"
   },
   "homepage": "https://github.com/steveblue/custom-elements#readme",
-  "dependencies": {},
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
+  },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@types/node": "^10.12.12",
+    "@types/reflect-metadata": "^0.1.0",
     "chokidar": "^2.0.4",
+    "parcel-bundler": "^1.10.3",
     "rollup": "^0.67.3",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "tslib": "^1.9.3",
     "typescript": "^3.2.1"
   }
 }

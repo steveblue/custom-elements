@@ -1,17 +1,21 @@
-export class ButtonComponent extends HTMLElement {
+import { Component, CustomElementMeta } from "../../../decorators/component";
+
+@CustomElementMeta({
+    selector: 'fx-button',
+    template: `
+         <b>Click me</b>
+    `,
+    style: `
+     :host {
+            background: red;
+            cursor: pointer;
+      }
+    `
+})
+class ButtonComponent extends Component {
+
     constructor() {
         super();
-        const template = document.createElement('template');
-        template.innerHTML = `
-        <style>
-        :host { 
-            background: red;
-        }
-        </style> 
-        <b>Click me</b>   
-        `;
-        const shadowRoot : ShadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
     connectedCallback() {
@@ -22,3 +26,5 @@ export class ButtonComponent extends HTMLElement {
         console.log(event);
     }
 }
+
+export { ButtonComponent };

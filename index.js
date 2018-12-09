@@ -1,4 +1,3 @@
-const util = require('util');
 const spawn = require('child_process').spawn;
 const chokidar = require('chokidar');
 const log = console.log.bind(console);
@@ -14,4 +13,4 @@ watcher
     });
 
 spawn('./build.sh', {stdio:'inherit'});
-spawn('live-server',  ['dist/'], {stdio:'inherit'});
+//spawn('live-server',  ['dist/'], {stdio:'inherit'});
