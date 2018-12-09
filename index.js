@@ -6,11 +6,17 @@ const watcher = chokidar.watch('src/**/*.*', {
     persistent: true
 });
 
+const args = [];
+
+if (process.argv.indexOf('--prod') > 0) {
+    args.push('--prod');
+}
+
 watcher
     .on('change', path => {
         log(`File ${path} has changed`);
-        spawn('./build.sh', {stdio:'inherit'});
+        spawn('./build.sh', args, {stdio:'inherit'});
     });
 
-spawn('./build.sh', {stdio:'inherit'});
+spawn('./build.sh', args, {stdio:'inherit'});
 //spawn('live-server',  ['dist/'], {stdio:'inherit'});

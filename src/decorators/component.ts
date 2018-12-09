@@ -4,21 +4,6 @@ export interface ElementMeta {
     template?: string;
 }
 
-export class Component extends HTMLElement {
-    template: string;
-    constructor() {
-        super();
-        this.attachShadowDOM();
-        return this;
-    }
-    attachShadowDOM() {
-        const shadowRoot : ShadowRoot = this.attachShadow({mode: 'open'});
-        const t = document.createElement('template');
-        t.innerHTML = this.template;
-        shadowRoot.appendChild(t.content.cloneNode(true));
-    };
-}
-
 export const compileTemplate = function(attributes: ElementMeta, target: Function) {
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
@@ -38,5 +23,19 @@ export function CustomElementMeta(attributes: ElementMeta) {
         }
         customElement.prototype = target.prototype;
         return target;
+    };
+}
+
+export class Component extends HTMLElement {
+    template: string;
+    constructor() {
+        super();
+        this.attachShadowDOM();
+    }
+    attachShadowDOM() {
+        const shadowRoot : ShadowRoot = this.attachShadow({mode: 'open'});
+        const t = document.createElement('template');
+        t.innerHTML = this.template;
+        shadowRoot.appendChild(t.content.cloneNode(true));
     };
 }
