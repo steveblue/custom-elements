@@ -4,13 +4,16 @@ export interface ElementMeta {
     template?: string;
 }
 
+export const html = (...args)=>{ return args };
+export const css = (...args)=>{ return args };
+
 export const compileTemplate = function(elementMeta: ElementMeta, target: Function) {
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
                 <style>
                 ${elementMeta.style}
-                </style> 
-                ${elementMeta.template} 
+                </style>
+                ${elementMeta.template}
                 `;
     target.prototype.attachShadow = HTMLElement.prototype.attachShadow;
 };
@@ -22,7 +25,6 @@ export function ComponentMeta(attributes: ElementMeta) {
             compileTemplate(attributes, target);
         }
         customElement.prototype = target.prototype;
-        customElement.prototype.elementMeta = attributes;
         return target;
     };
 }

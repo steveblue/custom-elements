@@ -1,19 +1,19 @@
-import { ComponentMeta } from './decorators/component';
+import { ComponentMeta, html, css } from './decorators/component';
 import { ButtonComponent } from './lib/components/button/button.component';
 
 @ComponentMeta({
     selector: 'fx-button',
-    template: `
-         <i>Click me</i>
+    template: html`
+         <i>Click me too!</i>
     `,
-    style: `
+    style: css`
      :host {
             background: blue;
             cursor: pointer;
+            padding: 10px;
       }
     `
 })
-
 class FxButtonComponent extends ButtonComponent {
     constructor() {
         super();

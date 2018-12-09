@@ -1,30 +1,30 @@
-import { Component,  ComponentMeta } from "../../../decorators/component";
+import { Component, ComponentMeta, ElementMeta, html, css } from "../../../decorators/component";
 
 @ComponentMeta({
-    selector: 'fx-button',
-    template: `
-         <b>Click me</b>
+	selector: 'fx-button',
+	template: html`
+         <a href="http://google.com" target="_blank">Click me!</a>
     `,
-    style: `
+	style: css`
      :host {
             background: red;
             cursor: pointer;
+            padding: 10px;
       }
-    `
+    `,
 })
 class ButtonComponent extends Component {
+	constructor() {
+		super();
+	}
 
-    constructor() {
-        super();
-    }
+	connectedCallback() {
+		this.addEventListener('click', this.handleClick);
+	}
 
-    connectedCallback() {
-        this.addEventListener('click', this.handleClick);
-    }
-
-    handleClick(event) {
-        console.log(event);
-    }
+	handleClick(event) {
+		console.log(this);
+	}
 }
 
 export { ButtonComponent };
