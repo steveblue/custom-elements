@@ -12,7 +12,7 @@ export default {
     },
     output: {
         file: 'dist/main.js',
-        format: 'iife',
+        format: 'esm',
         sourcemap: true
     }
 };

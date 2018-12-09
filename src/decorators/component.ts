@@ -4,24 +4,25 @@ export interface ElementMeta {
     template?: string;
 }
 
-export const compileTemplate = function(attributes: ElementMeta, target: Function) {
+export const compileTemplate = function(elementMeta: ElementMeta, target: Function) {
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
                 <style>
-                ${attributes.style}
+                ${elementMeta.style}
                 </style> 
-                ${attributes.template} 
+                ${elementMeta.template} 
                 `;
     target.prototype.attachShadow = HTMLElement.prototype.attachShadow;
 };
 
-export function CustomElementMeta(attributes: ElementMeta) {
+export function ComponentMeta(attributes: ElementMeta) {
     return (target: any) => {
         const customElement = function(...args: any[]){};
         if (attributes !== undefined && attributes !== null) {
             compileTemplate(attributes, target);
         }
         customElement.prototype = target.prototype;
+        customElement.prototype.elementMeta = attributes;
         return target;
     };
 }
@@ -39,3 +40,5 @@ export class Component extends HTMLElement {
         shadowRoot.appendChild(t.content.cloneNode(true));
     };
 }
+
+// TODO: figure out how many other types should be extended

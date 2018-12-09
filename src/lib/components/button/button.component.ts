@@ -1,6 +1,6 @@
-import { Component, CustomElementMeta } from "../../../decorators/component";
+import { Component,  ComponentMeta } from "../../../decorators/component";
 
-@CustomElementMeta({
+@ComponentMeta({
     selector: 'fx-button',
     template: `
          <b>Click me</b>

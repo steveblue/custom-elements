@@ -4,6 +4,7 @@ import { uglify } from 'rollup-plugin-uglify';
 
 export default {
     input: 'src/main.ts',
+
     plugins: [
         resolve(),
         typescript({target: 'es5'}),
@@ -15,7 +16,7 @@ export default {
     },
     output: {
         file: 'dist/main.js',
-        format: 'iife',
+        format: 'esm',
         sourcemap: true
     }
 };
