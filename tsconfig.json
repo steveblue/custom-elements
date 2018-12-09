@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "module": "ES2015",
     "outDir": "./dist",
-    "target": "ES5",
+    "target": "ES2015",
     "typeRoots": [ "node_modules/@types" ],
     "types" : ["reflect-metadata"]
   },

@@ -6,7 +6,7 @@ export default {
     input: 'src/main.ts',
     plugins: [
         resolve(),
-        typescript(),
+        typescript({target: 'es5'}),
         uglify()
     ],
     onwarn: ( warning, next ) => {
