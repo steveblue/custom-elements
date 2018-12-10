@@ -29,11 +29,11 @@ class ButtonComponent extends HTMLButtonElement {
 }
 
 @ComponentMeta({
-		selector: 'red-button',
-		template: html`
+	selector: 'red-button',
+	template: html`
             <b>Click me!</b>
     `,
-		style: css`
+	style: css`
         :host {
             background: red;
             cursor: pointer;
