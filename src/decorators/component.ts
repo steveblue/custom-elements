@@ -7,7 +7,7 @@ export interface ElementMeta {
 export const html = (...args)=>{ return args };
 export const css = (...args)=>{ return args };
 
-export const compileTemplate = function(elementMeta: ElementMeta, target: Function) {
+export function compileTemplate(elementMeta: ElementMeta, target: Function) {
     target.prototype.elementMeta = elementMeta;
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
@@ -59,10 +59,12 @@ export class Component extends HTMLElement {
 export class ButtonComponent extends HTMLButtonElement {
     constructor() {
         super();
+        attachDOM(this);
+		attachStyle(this);
     }
-    click() {
-        console.log('button click!');
-    }
+	connectedCallback() {
+		this.addEventListener('click', this.onClick);
+	}
 }
 
 

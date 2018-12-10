@@ -17,6 +17,7 @@ export default {
     output: {
         file: 'dist/main.js',
         format: 'esm',
-        sourcemap: true
+        sourcemap: true,
+        treeshake: true
     }
 };

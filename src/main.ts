@@ -1,7 +1,7 @@
 import { ComponentMeta, html, css } from './decorators/component';
-import { AButtonComponent } from './lib/components/button/button.component';
-import { FxButtonComponent } from './lib/components/button/fx-button.component';
+import { RedButtonComponent } from './lib/components/button/red-button.component';
+import { BlueButtonComponent } from './lib/components/button/blue-button.component';
 
 
-customElements.define('a-button', AButtonComponent, { extends: 'button'});
-customElements.define('fx-button', FxButtonComponent, { extends: 'button'});
+customElements.define('red-button', RedButtonComponent, { extends: 'button'});
+customElements.define('blue-button', BlueButtonComponent, { extends: 'button'});
