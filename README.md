@@ -5,36 +5,35 @@ A playground for building Web Components with TypeScript Decorators.
 With functions available in `src/decorators/component.ts` you can use the following syntax to create a Custom Element. The below example is a button.
 
 ```
-import { Component, CustomElementMeta } from "../../../decorators/component";
+import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/component";
 
-@CustomElementMeta({
-    selector: 'fx-button',
-    template: `
-         <b>Click me</b>
-    `,
-    style: `
-     :host {
-            background: red;
-            cursor: pointer;
-      }
-    `
-})
-class ButtonComponent extends Component {
-
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.addEventListener('click', this.handleClick);
-    }
-
-    handleClick(event) {
-        console.log(event);
-    }
+@ComponentMeta({
+		selector: 'red-button',
+		template: html`
+					<b>Click me!</b>
+			`,
+		style: css`
+			:host {
+							background: red;
+							cursor: pointer;
+							padding: 10px;
+							border-radius: 30px;
+							border: 0 none;
+							color: white;
+							text-decoration: none;
+				}
+			`,
+	})
+class RedButtonComponent extends ButtonComponent {
+	constructor() {
+		super();
+	}
+	onClick(event) {
+		console.log(this, event);
+	}
 }
 
-export { ButtonComponent };
+export { RedButtonComponent };
 ```
 
 ## Getting Started
