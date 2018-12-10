@@ -1,13 +1,13 @@
-export interface ElementMeta {
+interface ElementMeta {
     selector: string;
     style?: string;
     template?: string;
 }
 
-export const html = (...args)=>{ return args };
-export const css = (...args)=>{ return args };
+const html = (...args)=>{ return args };
+const css = (...args)=>{ return args };
 
-export function compileTemplate(elementMeta: ElementMeta, target: Function) {
+function compileTemplate(elementMeta: ElementMeta, target: Function) {
     target.prototype.elementMeta = elementMeta;
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
@@ -18,7 +18,7 @@ export function compileTemplate(elementMeta: ElementMeta, target: Function) {
                 `;
 };
 
-export function ComponentMeta(attributes: ElementMeta) {
+function ComponentMeta(attributes: ElementMeta) {
     return (target: any) => {
         const customElement = function(...args: any[]){};
         if (attributes !== undefined && attributes !== null) {
@@ -29,43 +29,24 @@ export function ComponentMeta(attributes: ElementMeta) {
     };
 }
 
-export function attachShadow(instance: any, options: any) {
+function attachShadow(instance: any, options: any) {
     const shadowRoot : ShadowRoot = instance.attachShadow(options || {});
     const t = document.createElement('template');
     t.innerHTML = instance.template;
     shadowRoot.appendChild(t.content.cloneNode(true));
 }
 
-export function attachDOM(instance: any, options: any) {
+function attachDOM(instance: any, options: any) {
     const t = document.createElement('template');
     t.innerHTML = instance.elementMeta.template;
     instance.appendChild(t.content.cloneNode(true));
 }
 
-export function attachStyle(instance: any, options: any) {
+function attachStyle(instance: any, options: any) {
     const t = document.createElement('style');
     t.innerText = instance.elementMeta.style;
     t.innerText = t.innerText.replace(/:host/gi, `[is=${instance.elementMeta.selector}]`);
     document.head.appendChild(t);
 }
 
-export class Component extends HTMLElement {
-    constructor() {
-        super();
-        attachShadow(this);
-    }
-}
-
-export class ButtonComponent extends HTMLButtonElement {
-    constructor() {
-        super();
-        attachDOM(this);
-		attachStyle(this);
-    }
-	connectedCallback() {
-		this.addEventListener('click', this.onClick);
-	}
-}
-
-
-// TODO: figure out how many other types should be extended
+export { ElementMeta, ComponentMeta, compileTemplate, attachDOM, attachStyle, attachShadow, html, css };

@@ -1,4 +1,5 @@
-import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/component";
+import { ComponentMeta, html, css} from "../../../decorators/component";
+import { ButtonComponent } from './../../../component/component';
 
 @ComponentMeta({
     selector: 'blue-button',
@@ -16,13 +17,12 @@ import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/co
     `
 })
 class BlueButtonComponent extends ButtonComponent {
-    constructor() {
-        super();
-    }
-
-    onClick(event) {
-      console.log(this, event);
-    }
+	constructor() {
+		super();
+	}
+	onClick(event) {
+		console.log(this, event);
+	}
 }
 
 
