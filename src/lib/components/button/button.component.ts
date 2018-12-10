@@ -1,7 +1,7 @@
-import { Component, ComponentMeta, ElementMeta, html, css } from "../../../decorators/component";
+import { ButtonComponent, ComponentMeta, html, css, attachDOM, attachStyle } from "../../../decorators/component";
 
 @ComponentMeta({
-	selector: 'fx-button',
+	selector: 'a-button',
 	template: html`
          <a href="http://google.com" target="_blank">Click me!</a>
     `,
@@ -13,9 +13,11 @@ import { Component, ComponentMeta, ElementMeta, html, css } from "../../../decor
       }
     `,
 })
-class ButtonComponent extends Component {
+class AButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 	}
 
 	connectedCallback() {
@@ -27,4 +29,4 @@ class ButtonComponent extends Component {
 	}
 }
 
-export { ButtonComponent };
+export { AButtonComponent };

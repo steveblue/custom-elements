@@ -8,6 +8,7 @@ export const html = (...args)=>{ return args };
 export const css = (...args)=>{ return args };
 
 export const compileTemplate = function(elementMeta: ElementMeta, target: Function) {
+    target.prototype.elementMeta = elementMeta;
     target.prototype.template = document.createElement('template');
     target.prototype.template = `
                 <style>
@@ -15,7 +16,6 @@ export const compileTemplate = function(elementMeta: ElementMeta, target: Functi
                 </style>
                 ${elementMeta.template}
                 `;
-    target.prototype.attachShadow = HTMLElement.prototype.attachShadow;
 };
 
 export function ComponentMeta(attributes: ElementMeta) {
@@ -29,18 +29,41 @@ export function ComponentMeta(attributes: ElementMeta) {
     };
 }
 
+export function attachShadow(instance: any, options: any) {
+    const shadowRoot : ShadowRoot = instance.attachShadow(options || {});
+    const t = document.createElement('template');
+    t.innerHTML = instance.template;
+    shadowRoot.appendChild(t.content.cloneNode(true));
+}
+
+export function attachDOM(instance: any, options: any) {
+    const t = document.createElement('template');
+    t.innerHTML = instance.elementMeta.template;
+    instance.appendChild(t.content.cloneNode(true));
+}
+
+export function attachStyle(instance: any, options: any) {
+    const t = document.createElement('style');
+    t.innerText = instance.elementMeta.style;
+    t.innerText = t.innerText.replace(/:host/gi, `[is=${instance.elementMeta.selector}]`);
+    document.head.appendChild(t);
+}
+
 export class Component extends HTMLElement {
-    template: string;
     constructor() {
         super();
-        this.attachShadowDOM();
+        attachShadow(this);
     }
-    attachShadowDOM() {
-        const shadowRoot : ShadowRoot = this.attachShadow({mode: 'open'});
-        const t = document.createElement('template');
-        t.innerHTML = this.template;
-        shadowRoot.appendChild(t.content.cloneNode(true));
-    };
 }
+
+export class ButtonComponent extends HTMLButtonElement {
+    constructor() {
+        super();
+    }
+    click() {
+        console.log('button click!');
+    }
+}
+
 
 // TODO: figure out how many other types should be extended
