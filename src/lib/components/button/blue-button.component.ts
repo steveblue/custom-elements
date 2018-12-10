@@ -11,7 +11,6 @@ import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/co
             cursor: pointer;
             padding: 10px;
             border-radius: 30px;
-            border: 0 none;
             color: orange;
       }
     `

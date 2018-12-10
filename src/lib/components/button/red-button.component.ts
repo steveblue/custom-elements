@@ -3,7 +3,7 @@ import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/co
 @ComponentMeta({
 		selector: 'red-button',
 		template: html`
-					<a href="#">Click me!</a>
+					<b>Click me!</b>
 			`,
 		style: css`
 			:host {
@@ -12,8 +12,6 @@ import { ButtonComponent, ComponentMeta, html, css} from "../../../decorators/co
 							padding: 10px;
 							border-radius: 30px;
 							border: 0 none;
-				}
-				:host a:link, :host a:visited {
 							color: white;
 							text-decoration: none;
 				}
