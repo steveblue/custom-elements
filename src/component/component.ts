@@ -174,6 +174,7 @@ export class ImageComponent extends HTMLImageElement {
 export class InputComponent extends HTMLInputElement {
     constructor() {
         super();
+        attachStyle(this);
     }
 }
 export class LIComponent extends HTMLLIElement {
