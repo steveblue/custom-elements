@@ -18,7 +18,7 @@ function compileTemplate(elementMeta: ElementMeta, target: Function) {
                 `;
 };
 
-function ComponentMeta(attributes: ElementMeta) {
+function Component(attributes: ElementMeta) {
     return (target: any) => {
         const customElement = function(...args: any[]){};
         if (attributes !== undefined && attributes !== null) {
@@ -49,4 +49,4 @@ function attachStyle(instance: any, options: any) {
     document.head.appendChild(t);
 }
 
-export { ElementMeta, ComponentMeta, compileTemplate, attachDOM, attachStyle, attachShadow, html, css };
+export { ElementMeta, Component, compileTemplate, attachDOM, attachStyle, attachShadow, html, css };

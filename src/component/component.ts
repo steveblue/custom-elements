@@ -1,6 +1,6 @@
 import { attachDOM, attachStyle, attachShadow } from './../decorators/component';
 
-export class Component extends HTMLElement {
+export class CustomElement extends HTMLElement {
     constructor() {
         super();
         attachShadow(this);
@@ -99,12 +99,12 @@ export class DivComponent extends HTMLDivElement {
         attachShadowDOM(this);
     }
 }
-export class DocumentComponent extends HTMLDocumentElement {
-    constructor() {
-        super();
-        attachShadowDOM(this);
-    }
-}
+// export class DocumentComponent extends HTMLDocumentElement {
+//     constructor() {
+//         super();
+//         attachShadowDOM(this);
+//     }
+// }
 export class EmbedComponent extends HTMLEmbedElement {
     constructor() {
         super();
@@ -364,11 +364,11 @@ export class TemplateComponent extends HTMLTemplateElement {
         super();
     }
 }
-export class TextareaComponent extends HTMLTextareaElement {
-    constructor() {
-        super();
-    }
-}
+// export class TextareaComponent extends HTMLTextareaElement {
+//     constructor() {
+//         super();
+//     }
+// }
 export class TimeComponent extends HTMLTimeElement {
     constructor() {
         super();

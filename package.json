@@ -43,9 +43,8 @@
     "rollup": "^0.67.3",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
-    "rollup-plugin-uglify": "^6.0.0",
+    "terser": "^3.11.0",
     "tslib": "^1.9.3",
-    "typescript": "^3.2.1",
-    "uglify-js": "^3.4.9"
+    "typescript": "^3.2.1"
   }
 }

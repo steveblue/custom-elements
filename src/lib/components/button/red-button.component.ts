@@ -1,7 +1,7 @@
-import { ComponentMeta, html, css} from "../../../decorators/component";
+import { Component, html, css} from "../../../decorators/component";
 import { ButtonComponent } from './../../../component/component';
 
-@ComponentMeta({
+@Component({
 		selector: 'red-button',
 		template: html`
 					<b>Click me!</b>

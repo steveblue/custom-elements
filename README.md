@@ -5,7 +5,7 @@ A playground for building Web Components with TypeScript Decorators.
 With functions available in `src/decorators/component.ts` you can use the following syntax to create a Custom Element. The below example is a button.
 
 ```js
-function ComponentMeta(attributes: ElementMeta) {
+function Component(attributes: ElementMeta) {
     return (target: any) => {
         const customElement = function(...args: any[]){};
         if (attributes !== undefined && attributes !== null) {
@@ -27,7 +27,7 @@ class ButtonComponent extends HTMLButtonElement {
 	}
 }
 
-@ComponentMeta({
+@Component({
 	selector: 'red-button',
 	template: html`
             <b>Click me!</b>
