@@ -41,10 +41,10 @@ export class BodyComponent extends HTMLBodyElement {
 export class ButtonComponent extends HTMLButtonElement {
     constructor() {
         super();
-        attachDOM(this);
-		    attachStyle(this);
     }
 	connectedCallback() {
+    attachDOM(this);
+    attachStyle(this);
 		this.addEventListener('click', this.onClick);
 	}
 }
@@ -174,7 +174,11 @@ export class ImageComponent extends HTMLImageElement {
 export class InputComponent extends HTMLInputElement {
     constructor() {
         super();
+    }
+    connectedCallback() {
         attachStyle(this);
+        this.addEventListener('blur', this.onBlur);
+        this.addEventListener('focus', this.onFocus);
     }
 }
 export class LIComponent extends HTMLLIElement {
