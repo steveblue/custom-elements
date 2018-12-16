@@ -49,4 +49,20 @@ function attachStyle(instance: any, options: any) {
     document.head.appendChild(t);
 }
 
-export { ElementMeta, Component, compileTemplate, attachDOM, attachStyle, attachShadow, html, css };
+
+function getSiblings(el, filter) {
+    if (!filter) {
+      filter = [];
+    }
+    return Array.from(el.parentNode.children).filter((elem) => {
+      return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
+    });
+}
+
+function getParent(el) {
+    return el.parentNode;
+}
+
+
+
+export { ElementMeta, Component, compileTemplate, attachDOM, attachStyle, attachShadow, getSiblings, getParent, html, css };

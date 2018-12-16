@@ -4,10 +4,10 @@ import { CustomElement } from './../../../component/component';
 @Component({
 		selector: 'my-element',
     template: html`
-        <p>You</p>
-        <p>Can</p>
-        <p>Make</p>
-        <slot name="make" >Anything</slot>
+        <my-item><span slot="msg">You</span></my-item>
+        <my-item><span slot="msg">Can</span></my-item>
+        <my-item><span slot="msg">Make</span></my-item>
+        <my-item><span slot="msg">Anything</span></my-item>
     `,
 		style: css`
 		 :host {
@@ -19,15 +19,21 @@ import { CustomElement } from './../../../component/component';
         padding: 1em;
         border-radius: 8px;
 		  }
-      ::slotted(.--red) {
-        background: red;
-      }
+
 		`
 })
 class MyElementComponent extends CustomElement {
 	constructor() {
 		super();
 	}
+  connectedCallback() {
+    this.paragraphs = this.children;
+    for (let paragraph of this.paragraphs) {
+      paragraph.addEventListener('click', (ev: MouseEvent) => {
+          console.log(ev);
+      });
+    }
+  }
 }
 
 
