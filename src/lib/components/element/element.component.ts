@@ -19,6 +19,9 @@ import { CustomElement } from './../../../component/component';
         padding: 1em;
         border-radius: 8px;
 		  }
+      ::slotted(.--red) {
+        background: red;
+      }
 		`
 })
 class MyElementComponent extends CustomElement {
