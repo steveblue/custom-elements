@@ -48,9 +48,9 @@ class RedButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
 	}
-    onClick() {
-        console.log('click!');
-    }
+        onClick() {
+            console.log('click!');
+        }
 }
 
 customElements.define('red-button', RedButtonComponent, { extends: 'button'});
