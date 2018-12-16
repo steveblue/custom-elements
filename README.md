@@ -22,9 +22,9 @@ class ButtonComponent extends HTMLButtonElement {
         attachDOM(this);
 		attachStyle(this);
     }
-connectedCallback() {
-    this.addEventListener('click', this.onClick);
-}
+    connectedCallback() {
+        this.addEventListener('click', this.onClick);
+    }
 }
 
 @Component({
