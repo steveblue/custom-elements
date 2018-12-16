@@ -57,9 +57,9 @@ customElements.define('red-button', RedButtonComponent, { extends: 'button'});
 
 ```
 
-... in a template somewhere
+In a template somewhere...
 
-```
+```html
 <button is="red-button"></button>
 ```
 
