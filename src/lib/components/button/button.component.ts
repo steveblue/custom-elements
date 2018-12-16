@@ -2,23 +2,20 @@ import { Component, html, css} from "../../../decorators/component";
 import { ButtonComponent } from './../../../component/component';
 
 @Component({
-		selector: 'red-button',
+		selector: 'my-button',
 		template: html`
-					<b>Click me!</b>
+					<span>button</span>
 		`,
 		style: css`
 		 :host {
-						background: red;
+					  background: rgba(24,24,24,1.0);
 						cursor: pointer;
-						padding: 10px;
-						border-radius: 30px;
-						border: 0 none;
 						color: white;
-						text-decoration: none;
+						font-weight: 400;
 			 }
 			`,
 })
-class RedButtonComponent extends ButtonComponent {
+class MyButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
 	}
@@ -27,4 +24,4 @@ class RedButtonComponent extends ButtonComponent {
 	}
 }
 
-export { RedButtonComponent };
+export { MyButtonComponent };

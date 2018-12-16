@@ -3,7 +3,7 @@ import { attachDOM, attachStyle, attachShadow } from './../decorators/component'
 export class CustomElement extends HTMLElement {
     constructor() {
         super();
-        attachShadow(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 
@@ -35,7 +35,7 @@ export class BRComponent extends HTMLBRElement {
 export class BodyComponent extends HTMLBodyElement {
     constructor() {
         super();
-        attachShadowDOM(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 export class ButtonComponent extends HTMLButtonElement {
@@ -96,13 +96,13 @@ export class DirectoryComponent extends HTMLDirectoryElement {
 export class DivComponent extends HTMLDivElement {
     constructor() {
         super();
-        attachShadowDOM(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 // export class DocumentComponent extends HTMLDocumentElement {
 //     constructor() {
 //         super();
-//         attachShadowDOM(this);
+//         attachShadow(this);
 //     }
 // }
 export class EmbedComponent extends HTMLEmbedElement {
@@ -153,7 +153,7 @@ export class HeadComponent extends HTMLHeadElement {
 export class HeadingComponent extends HTMLHeadingElement {
     constructor() {
         super();
-        attachShadowDOM(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 export class HtmlComponent extends HTMLHtmlElement {
@@ -269,7 +269,7 @@ export class OutputComponent extends HTMLOutputElement {
 export class ParagraphComponent extends HTMLParagraphElement {
     constructor() {
         super();
-        attachShadowDOM(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 export class ParamComponent extends HTMLParamElement {
@@ -325,7 +325,7 @@ export class SourceComponent extends HTMLSourceElement {
 export class SpanComponent extends HTMLSpanElement {
     constructor() {
         super();
-        attachShadowDOM(this);
+        attachShadow(this, {mode: 'open'});
     }
 }
 export class StyleComponent extends HTMLStyleElement {

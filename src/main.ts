@@ -1,7 +1,7 @@
-import { RedButtonComponent } from './lib/components/button/red-button.component';
-import { BlueButtonComponent } from './lib/components/button/blue-button.component';
+import { MyButtonComponent } from './lib/components/button/button.component';
 import { MyInputComponent } from './lib/components/input/input.component';
+import { MyElementComponent } from './lib/components/element/element.component';
 
+customElements.define('my-element', MyElementComponent)
 customElements.define('my-input', MyInputComponent, { extends: 'input'});
-customElements.define('red-button', RedButtonComponent, { extends: 'button'});
-customElements.define('blue-button', BlueButtonComponent, { extends: 'button'});
+customElements.define('my-button', MyButtonComponent, { extends: 'button'});

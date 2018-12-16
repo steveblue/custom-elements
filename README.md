@@ -30,7 +30,7 @@ class ButtonComponent extends HTMLButtonElement {
 @Component({
 	selector: 'red-button',
 	template: html`
-            <b>Click me!</b>
+        <b>Click me!</b>
     `,
 	style: css`
         :host {
@@ -63,7 +63,7 @@ In a template somewhere...
 <button is="red-button"></button>
 ```
 
-Wa la!
+Wa la! A Custom Element that retains all the behaviors of a button, yet extends button to do other things. In this nieve implementation all that is changed is the style of the button. Creating a customized built in element like this will retain all the behaviors of the element that is extended.
 
 ## Getting Started
 

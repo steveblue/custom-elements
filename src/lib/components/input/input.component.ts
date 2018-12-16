@@ -5,9 +5,10 @@ import { InputComponent } from './../../../component/component';
 		selector: 'my-input',
 		style: css`
 		 :host {
-				background: green;
+				background: rgba(24,24,24,1.0);
+        border: 0px none;
         color: white;
-			 }
+			}
 			`,
 })
 class MyInputComponent extends InputComponent {
@@ -16,9 +17,10 @@ class MyInputComponent extends InputComponent {
 	}
 	onFocus(event) {
 		console.log(this, event);
+    this.value = 'input';
 	}
   onBlur(event) {
-    	console.log(this, event);
+    console.log(this, event);
   }
 }
 
