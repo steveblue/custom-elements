@@ -23,14 +23,6 @@ class MyItemComponent extends CustomElement {
 	constructor() {
 		super();
 	}
-  connectedCallback() {
-    this.addEventListener('click', (ev: MouseEvent) => {
-         getSiblings(this).forEach((elem) => {
-           elem.setAttribute('state', '');
-         })
-         this.setAttribute('state', '--selected');
-    });
-  }
 }
 
 

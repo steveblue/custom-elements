@@ -24,8 +24,17 @@
     <!-- Add your site or application content here -->
     <h3>Components</h3>
     <p> Autonomous custom elements. These components extend from HTMLElement, can attach ShadowDOM.</p>
-    <my-element></my-element>
+
+    <my-list>
+        <ul slot="menu">
+            <li><my-item><span slot="msg">You</span></my-item></li>
+            <li><my-item><span slot="msg">Can</span></my-item></li>
+            <li><my-item><span slot="msg">Make</span></my-item></li>
+            <li><my-item><span slot="msg">Anything</span></my-item></li>
+        </ul>
+    </my-list>
     <p> Customized built-in elements. These components retain the default characteristics of the HTML Elements they extend from.</p>
+
     <button is="my-button"></button>
     <input is="my-input" type="text">
 

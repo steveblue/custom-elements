@@ -49,20 +49,21 @@ function attachStyle(instance: any, options: any) {
     document.head.appendChild(t);
 }
 
+function getParent(el) {
+    return el.parentNode;
+}
 
 function getSiblings(el, filter) {
     if (!filter) {
       filter = [];
     }
-    return Array.from(el.parentNode.children).filter((elem) => {
-      return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
+    return Array.from(getParent(el).children).filter((elem) => {
+        return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
     });
 }
 
-function getParent(el) {
-    return el.parentNode;
+function getElementIndex(el) {
+    return getSiblings(el).indexOf(el);
 }
 
-
-
-export { ElementMeta, Component, compileTemplate, attachDOM, attachStyle, attachShadow, getSiblings, getParent, html, css };
+export { ElementMeta, Component, compileTemplate, attachDOM, attachStyle, attachShadow, getSiblings, getElementIndex, getParent, html, css };
