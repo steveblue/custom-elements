@@ -41,6 +41,8 @@
     "@types/node": "^10.12.12",
     "@types/reflect-metadata": "^0.1.0",
     "chokidar": "^2.0.4",
+    "postcss": "^7.0.7",
+    "postcss-csso": "^3.0.0",
     "rollup": "^0.67.3",
     "rollup-plugin-minify-html-literals": "^1.1.2",
     "rollup-plugin-node-resolve": "^3.4.0",
