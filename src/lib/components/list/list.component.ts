@@ -84,6 +84,7 @@ class MyListComponent extends CustomElement {
               this.deactivateElement(elem);
             })
             this.activateElement(li);
+            this.onSubmit(ev);
         });
       }
 
