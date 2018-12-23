@@ -42,6 +42,7 @@
     "@types/reflect-metadata": "^0.1.0",
     "chokidar": "^2.0.4",
     "rollup": "^0.67.3",
+    "rollup-plugin-minify-html-literals": "^1.1.2",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
     "terser": "^3.11.0",
