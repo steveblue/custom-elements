@@ -3,11 +3,11 @@ import { CustomElement } from './../../../component/component';
 
 
 @Component({
-		selector: 'my-item',
+	selector: 'my-item',
     template: html`
         <p><span><slot name="msg">item</slot></span></p>
     `,
-		style: css`
+	style: css`
       :host {
         display: block;
         cursor: pointer;
@@ -17,7 +17,7 @@ import { CustomElement } from './../../../component/component';
         color: black;
         font-weight: 700;
       }
-		`
+	`
 })
 class MyItemComponent extends CustomElement {
 	constructor() {

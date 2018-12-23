@@ -16,7 +16,6 @@ import { CustomElement } from './../../../component/component';
         padding: 1em;
         border-radius: 8px;
 		  }
-
 		`
 })
 class MyListComponent extends CustomElement {
@@ -24,10 +23,6 @@ class MyListComponent extends CustomElement {
 		super();
     this.currentIndex = 0;
 	}
-
-  getSelected() {
-    return
-  }
 
   deactivateElement(elem: HTMLElement) {
     elem.setAttribute('tabindex', '-1');
@@ -45,6 +40,9 @@ class MyListComponent extends CustomElement {
       let currentElement = this.querySelector('[tabindex]:not([tabindex="-1"])');
       let siblings = getSiblings(currentElement);
       this.currentIndex = getElementIndex(currentElement);
+      if (ev.keyCode === 13) {
+        this.onSubmit(ev);
+      }
       if (ev.keyCode === 38) { // up
         if (this.currentIndex === 0) {
           this.currentIndex = siblings.length - 1;
@@ -91,7 +89,9 @@ class MyListComponent extends CustomElement {
 
     })
 
-
+  }
+  onSubmit(event) {
+    console.log(this, event);
   }
 }
 

@@ -172,14 +172,12 @@ export class ImageComponent extends HTMLImageElement {
     }
 }
 export class InputComponent extends HTMLInputElement {
-    constructor() {
-        super();
-    }
-    connectedCallback() {
-        attachStyle(this);
-        this.addEventListener('blur', this.onBlur);
-        this.addEventListener('focus', this.onFocus);
-    }
+        constructor() {
+            super();
+            attachStyle(this);
+            this.addEventListener('blur', this.onBlur);
+            this.addEventListener('focus', this.onFocus);
+        }
 }
 export class LIComponent extends HTMLLIElement {
     constructor() {
