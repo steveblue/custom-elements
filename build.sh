@@ -35,7 +35,7 @@ cp src/index.html dist/index.html
 cp src/style/main.css dist/style/main.css
 
 node_modules/.bin/rollup -c rollup.config.js
-if [[ $1 == '--prod' ]]; then
+if [[ $NODE_ENV == 'prod' ]]; then
 # node_modules/.bin/terser --compress --mangle --output dist/main.js -- dist/bundle.js
 java -jar node_modules/google-closure-compiler-java/compiler.jar --flagfile closure.conf --js_output_file dist/main.js
 fi

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "mkdir dist && mkdir dist/style",
     "start": "node index.js",
-    "build": "node index.js --prod",
+    "build": "NODE_ENV=prod node index.js",
     "serve": "node backend/server.js"
   },
   "repository": {
@@ -37,19 +37,17 @@
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "compression": "^1.7.3",
     "express": "^4.16.4",
-    "reflect-metadata": "^0.1.12",
-    "shrink-ray": "^0.1.3"
+    "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@types/node": "^10.12.12",
-    "@types/reflect-metadata": "^0.1.0",
     "chokidar": "^2.0.4",
     "google-closure-compiler": "^20181210.0.0",
     "livereload": "^0.7.0",
     "postcss": "^7.0.7",
     "postcss-csso": "^3.0.0",
-    "rollup": "^0.67.3",
+    "rollup": "^0.65.2",
     "rollup-plugin-minify-html-literals": "^1.1.2",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
