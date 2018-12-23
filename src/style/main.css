@@ -24,6 +24,17 @@ button, input {
 
 }
 
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+  }
+
 [tabindex] {
     outline: 1px solid transparent;
     transition-property: box-shadow, border;
