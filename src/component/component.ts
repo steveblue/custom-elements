@@ -175,8 +175,7 @@ export class InputComponent extends HTMLInputElement {
         constructor() {
             super();
             attachStyle(this);
-            this.addEventListener('blur', this.onBlur);
-            this.addEventListener('focus', this.onFocus);
+
         }
 }
 export class LIComponent extends HTMLLIElement {

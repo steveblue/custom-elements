@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = require('express').Router();
-const compression = require('compression');
+const compression = require('shrink-ray');
 
 
 module.exports = function(app) {
@@ -31,7 +31,7 @@ module.exports = function(app) {
 
 // ROUTES
 
-  app.use(compression());
+  app.use(compression({brotli: { quality: 11 }}));
 
   app.use('/', express.static( process.cwd() + '/' + projectRoot ));
 

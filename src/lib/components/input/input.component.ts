@@ -15,6 +15,10 @@ class MyInputComponent extends InputComponent {
 	constructor() {
 		super();
 	}
+	connectedCallback() {
+		this.addEventListener('blur', this.onBlur);
+		this.addEventListener('focus', this.onFocus);
+	}
 	onFocus(event) {
 		console.log(this, event);
     this.value = 'input';

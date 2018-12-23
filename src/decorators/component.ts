@@ -10,12 +10,7 @@ const css = (...args)=>{ return args };
 function compileTemplate(elementMeta: ElementMeta, target: Function) {
     target.prototype.elementMeta = elementMeta;
     target.prototype.template = document.createElement('template');
-    target.prototype.template = `
-                <style>
-                ${elementMeta.style}
-                </style>
-                ${elementMeta.template}
-                `;
+    target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
 };
 
 function Component(attributes: ElementMeta) {

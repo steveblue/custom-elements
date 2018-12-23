@@ -2,6 +2,7 @@ import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import inlineCSS from './rollup.cssnano-plugin';
+
 export default {
     input: 'src/main.ts',
     plugins: [
@@ -15,7 +16,7 @@ export default {
         next( warning );
     },
     output: {
-        file: 'dist/main.js',
+        file: process.env.NODE_ENV === 'prod' ? 'dist/bundle.js' : 'dist/main.js',
         format: 'esm',
         sourcemap: true
     }
