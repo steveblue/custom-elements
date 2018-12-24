@@ -4,7 +4,7 @@ A playground for building Web Components with TypeScript Decorators.
 
 With functions available in `src/decorators/component.ts` you can use the following syntax to create a Custom Element. In this example MyListComponent extends from HTMLElement making it an autonomous Custom Element. This means we can compile ShadowDOM inside the new Element by calling attachShadow and take advantage of slots so the user can define a custom template.
 
-In our template we can create a custom list element that has a user selectable list item. Let's call it `my-list`.
+In our template we can create a custom list element that has a user selectable list item. Let's call it `my-list`. It also has a child `my-item` that is not shown in this example, but is another Component in the test library.
 
 ```html
 <my-list>
