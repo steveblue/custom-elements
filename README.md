@@ -138,7 +138,7 @@ customElements.define('my-list', MyListComponent);
 The below example is a button that extends HTMLButtonElement. Since this is a customized built-in elements, MyButtonComponent extends from the native HTMLButtonElement, we cannot attach Shadow DOM. attachDOM compiles the template as the my-button innerHTML and places a style tag in the `<head>` to style the Element.
 
 ```js
-import { Component, html, css, attachDOM, attachStyle, attachShadow } from 'src/decorators/component';
+import { Component, html, css, attachDOM, attachStyle } from 'src/decorators/component';
 
 class ButtonComponent extends HTMLButtonElement {
 	constructor() {
