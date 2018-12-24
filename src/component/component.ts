@@ -1,103 +1,102 @@
 import { attachDOM, attachStyle, attachShadow } from './../decorators/component';
 
 export class CustomElement extends HTMLElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 
 export class AllCollectionComponent extends HTMLAllCollection {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class AnchorComponent extends HTMLAnchorElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class AreaComponent extends HTMLAreaElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class AudioComponent extends HTMLAudioElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class BRComponent extends HTMLBRElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class BodyComponent extends HTMLBodyElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 export class ButtonComponent extends HTMLButtonElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 	connectedCallback() {
-    attachDOM(this);
-    attachStyle(this);
-		this.addEventListener('click', this.onClick);
+		attachDOM(this);
+		attachStyle(this);
 	}
 }
 export class CanvasComponent extends HTMLCanvasElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class CollectionComponent extends HTMLCollection {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ContentComponent extends HTMLContentElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DListComponent extends HTMLDListElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DataComponent extends HTMLDataElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DataListComponent extends HTMLDataListElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DetailsComponent extends HTMLDetailsElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DialogComponent extends HTMLDialogElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DirectoryComponent extends HTMLDirectoryElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class DivComponent extends HTMLDivElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 // export class DocumentComponent extends HTMLDocumentElement {
 //     constructor() {
@@ -106,265 +105,264 @@ export class DivComponent extends HTMLDivElement {
 //     }
 // }
 export class EmbedComponent extends HTMLEmbedElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FieldSetComponent extends HTMLFieldSetElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FontComponent extends HTMLFontElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FormControlsComponent extends HTMLFormControlsCollection {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FormComponent extends HTMLFormElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FrameComponent extends HTMLFrameElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class FrameSetComponent extends HTMLFrameSetElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class HRComponent extends HTMLHRElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class HeadComponent extends HTMLHeadElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class HeadingComponent extends HTMLHeadingElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 export class HtmlComponent extends HTMLHtmlElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class IFrameComponent extends HTMLIFrameElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ImageComponent extends HTMLImageElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class InputComponent extends HTMLInputElement {
-        constructor() {
-            super();
-            attachStyle(this);
-
-        }
+	constructor() {
+		super();
+		attachStyle(this);
+	}
 }
 export class LIComponent extends HTMLLIElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class LabelComponent extends HTMLLabelElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class LegendComponent extends HTMLLegendElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class LinkComponent extends HTMLLinkElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MapComponent extends HTMLMapElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MarqueeComponent extends HTMLMarqueeElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MediaComponent extends HTMLMediaElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MenuComponent extends HTMLMenuElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MetaComponent extends HTMLMetaElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class MeterComponent extends HTMLMeterElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ModComponent extends HTMLModElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class OListComponent extends HTMLOListElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ObjectComponent extends HTMLObjectElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class OptGroupComponent extends HTMLOptGroupElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class OptionComponent extends HTMLOptionElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class OptionsCollectionComponent extends HTMLOptionsCollection {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class OutputComponent extends HTMLOutputElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ParagraphComponent extends HTMLParagraphElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 export class ParamComponent extends HTMLParamElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class PictureComponent extends HTMLPictureElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class PreComponent extends HTMLPreElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ProgressComponent extends HTMLProgressElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class QuoteComponent extends HTMLQuoteElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ScriptComponent extends HTMLScriptElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class SelectComponent extends HTMLSelectElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class ShadowComponent extends HTMLShadowElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class SlotComponent extends HTMLSlotElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class SourceComponent extends HTMLSourceElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class SpanComponent extends HTMLSpanElement {
-    constructor() {
-        super();
-        attachShadow(this, {mode: 'open'});
-    }
+	constructor() {
+		super();
+		attachShadow(this, { mode: 'open' });
+	}
 }
 export class StyleComponent extends HTMLStyleElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TableCaptionComponent extends HTMLTableCaptionElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TableCellComponent extends HTMLTableCellElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TableColComponent extends HTMLTableColElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TableComponent extends HTMLTableElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 
 export class TableRowComponent extends HTMLTableRowElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TableSectionComponent extends HTMLTableSectionElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TemplateComponent extends HTMLTemplateElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 // export class TextareaComponent extends HTMLTextareaElement {
 //     constructor() {
@@ -372,33 +370,33 @@ export class TemplateComponent extends HTMLTemplateElement {
 //     }
 // }
 export class TimeComponent extends HTMLTimeElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TitleComponent extends HTMLTitleElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class TrackComponent extends HTMLTrackElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class UListComponent extends HTMLUListElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 export class UnknownComponent extends HTMLUnknownElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
 
 export class VideoComponent extends HTMLVideoElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 }
