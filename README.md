@@ -13,7 +13,7 @@ Provide a Functional approach to encapsulate some of this logic into reusable Fu
 
 These methods below define the `Component` decorator which uses the `compileTemplate` Function to compile a HTML template. `attachShadow` provides a Function for calling `attachShadow` to the new Element to give it Shadow DOM.
 
-```
+```js
 function compileTemplate(elementMeta: ElementMeta, target: Function) {
     target.prototype.elementMeta = elementMeta;
     target.prototype.template = document.createElement('template');
