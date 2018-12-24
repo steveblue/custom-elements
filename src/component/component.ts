@@ -41,8 +41,6 @@ export class BodyComponent extends HTMLBodyElement {
 export class ButtonComponent extends HTMLButtonElement {
 	constructor() {
 		super();
-	}
-	connectedCallback() {
 		attachDOM(this);
 		attachStyle(this);
 	}

@@ -19,6 +19,9 @@ class MyButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
 	}
+	connectedCallback() {
+		this.addEventListener('click', this.onClick);
+	}
 	onClick(event) {
 		console.log(this, event);
 	}
