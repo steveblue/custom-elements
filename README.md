@@ -2,6 +2,48 @@
 
 A playground for building Web Components with TypeScript Decorators.
 
+### Problem
+
+When developing Web Components with Custom Elements API there is a lot of boilerplate that is repeated in all class declarations.
+
+
+### Solution
+
+Provide a Functional approach to encapsulate some of this logic into reusable Function, specifically a special kinda of higher order Function called a Decorator. Decorators are available in TypeScript. Decorators are used my libraries like Angular and Stencil. This approach can be applied to Custom Elements v1, giving the engineer a consistent interface for generating UI components.
+
+These methods below define the `Component` decorator which uses the `compileTemplate` Function to compile a HTML template. `attachShadow` provides a Function for calling `attachShadow` to the new Element to give it Shadow DOM.
+
+```
+function compileTemplate(elementMeta: ElementMeta, target: Function) {
+    target.prototype.elementMeta = elementMeta;
+    target.prototype.template = document.createElement('template');
+    target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
+};
+
+function Component(attributes: ElementMeta) {
+    return (target: any) => {
+        const customElement = function(...args: any[]){};
+        if (attributes !== undefined && attributes !== null) {
+            compileTemplate(attributes, target);
+        }
+        customElement.prototype = target.prototype;
+        return target;
+    };
+}
+
+function attachShadow(instance: any, options: any) {
+    const shadowRoot : ShadowRoot = instance.attachShadow(options || {});
+    const t = document.createElement('template');
+    t.innerHTML = instance.template;
+    shadowRoot.appendChild(t.content.cloneNode(true));
+}
+
+```
+
+
+### Examples
+
+
 With functions available in `src/decorators/component.ts` you can use the following syntax to create a Custom Element. In this example MyListComponent extends from HTMLElement making it an autonomous Custom Element. This means we can compile ShadowDOM inside the new Element by calling attachShadow and take advantage of slots so the user can define a custom template.
 
 In our template we can create a custom list element that has a user selectable list item. Let's call it `my-list`. It also has a child `my-item` that is not shown in this example, but is another Component in the test library.
@@ -28,7 +70,7 @@ In our template we can create a custom list element that has a user selectable l
 To define the class attached to MyListComponent we can implement it like so with the Decorator in this repo:
 
 ```js
-import { Component, html, css, attachShadow } from 'src/decorators/component';
+import { Component, html, css, attachShadow, getSiblings, getElementIndex } from 'src/decorators/component';
 
 export class CustomElement extends HTMLElement {
 	constructor() {
