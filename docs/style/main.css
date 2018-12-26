@@ -4,7 +4,7 @@ body {
     color:#cdcdcd;
     font-family: Dank Mono, sans-serif;
     font-size: 16px;
-
+    min-height: 100%;
 }
 
 button, input {
