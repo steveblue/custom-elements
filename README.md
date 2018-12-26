@@ -70,12 +70,13 @@ In our template we can create a custom list element that has a user selectable l
 To define the class attached to MyListComponent we can implement it like so with the Decorator in this repo:
 
 ```js
-import { Component, html, css, attachShadow, getSiblings, getElementIndex } from 'src/decorators/component';
+import { Component, html, css, attachShadow, getSiblings, getElementIndex, Listen } from 'src/decorators/component';
 
 export class CustomElement extends HTMLElement {
 	constructor() {
 		super();
 		attachShadow(this, { mode: 'open' });
+		this.onInit();
 	}
 }
 
@@ -101,20 +102,36 @@ class MyListComponent extends CustomElement {
 		super();
 		this.currentIndex = 0;
 	}
-
 	deactivateElement(elem: HTMLElement) {
 		elem.setAttribute('tabindex', '-1');
 		elem.querySelector('my-item').setAttribute('state', '');
 	}
-
 	activateElement(elem: HTMLElement) {
 		elem.setAttribute('tabindex', '0');
 		elem.querySelector('my-item').setAttribute('state', '--selected');
 	}
-
 	connectedCallback() {
 		this.setAttribute('tabindex', '0');
-		this.addEventListener('keydown', (ev: KeyboardEvent) => {
+	}
+	@Listen('focus')
+	onFocus(ev: FocusEvent) {
+			for (let li of this.children[0].children) {
+				if (li === this.children[0].children[this.currentIndex]) {
+					this.activateElement(li);
+				} else {
+					this.deactivateElement(li);
+				}
+				li.addEventListener('click', (ev: MouseEvent) => {
+					getSiblings(li).forEach((elem: HTMLElement) => {
+						this.deactivateElement(elem);
+					});
+					this.activateElement(li);
+					this.onSubmit(ev);
+				});
+			}
+	}
+	@Listen('keydown')
+	onKeydown(ev: KeyboardEvent) {
 			let currentElement = this.querySelector('[tabindex]:not([tabindex="-1"])');
 			let siblings = getSiblings(currentElement);
 			this.currentIndex = getElementIndex(currentElement);
@@ -151,23 +168,6 @@ class MyListComponent extends CustomElement {
 					}
 				});
 			}
-		});
-		this.addEventListener('focus', (ev: FocusEvent) => {
-			for (let li of this.children[0].children) {
-				if (li === this.children[0].children[this.currentIndex]) {
-					this.activateElement(li);
-				} else {
-					this.deactivateElement(li);
-				}
-				li.addEventListener('click', (ev: MouseEvent) => {
-					getSiblings(li).forEach((elem: HTMLElement) => {
-						this.deactivateElement(elem);
-					});
-					this.activateElement(li);
-					this.onSubmit(ev);
-				});
-			}
-		});
 	}
 	onSubmit(event) {
 		console.log(this, event);
@@ -180,13 +180,14 @@ customElements.define('my-list', MyListComponent);
 The below example is a button that extends HTMLButtonElement. Since this is a customized built-in elements, MyButtonComponent extends from the native HTMLButtonElement, we cannot attach Shadow DOM. attachDOM compiles the template as the my-button innerHTML and places a style tag in the `<head>` to style the Element.
 
 ```js
-import { Component, html, css, attachDOM, attachStyle } from 'src/decorators/component';
+import { Component, html, css, attachDOM, attachStyle, Listen } from 'src/decorators/component';
 
 class ButtonComponent extends HTMLButtonElement {
 	constructor() {
 		super();
 		attachDOM(this);
 		attachStyle(this);
+		this.onInit();
 	}
 }
 
@@ -211,11 +212,9 @@ class MyButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
 	}
-	onConnectedCallback() {
-		this.addEventListener('click', this.onClick);
-	}
-	onClick(ev) {
-		console.log('click!');
+	@Listen('click')
+	onClick(event) {
+		console.log(this, event);
 	}
 }
 
