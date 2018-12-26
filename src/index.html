@@ -13,19 +13,13 @@
     <!-- Place favicon.ico in the root directory -->
 
     <link rel="stylesheet" href="style/main.css">
-    <script src="lib/@ungap/custom-elements-builtin/min.js"></script>
-    <!-- <script src="lib/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script> -->
-    <!-- <script src="lib/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
-    <!-- <script src="lib/@webcomponents/custom-elements/custom-elements.min.js"></script> -->
-
+    <script src="lib/@ungap/custom-elements-builtin/custom-elements-builtin.min.js"></script>
 
 </head>
 
 <body>
-    <!-- Add your site or application content here -->
+
     <h3>Custom Elements</h3>
-    <!-- <p> Autonomous custom elements. These components extend from HTMLElement, can attach ShadowDOM. To make autonomous custom elements accessible, you must provide custom logic. Autonomous custom elements are out of the document flow. You can make autonomous custom elements accessible using `tabindex` and listening KeyboardEvent consistent with other elements in the flow.</p>
-    <p> Use tab to navigate to the MyListComponent. Then press the up and down arrow keys, followed by Enter to select an item in the MyListComponent.</p> -->
     <my-list>
         <ul slot="menu">
             <li><my-item><span slot="msg">Make</span></my-item></li>
@@ -34,17 +28,12 @@
             <li><my-item><span slot="msg">Accessible</span></my-item></li>
         </ul>
     </my-list>
-    <!-- <p> Customized built-in elements. These components retain the default characteristics of the HTML Elements they extend from. If you extend from a component that already has behaviors consistent with accessibility, the component will retain those behaviors. Elements like HTMLButtonElement and HTMLInputElement are by default in the flow of the document. The user can tab to these elements by default without the use of tabindex.</p> -->
     <br />
     <br />
     <button is="my-button"></button>
     <input is="my-input" type="text">
 
     <script src="main.js"></script>
-    <!-- <script>
-        document.write('<script src="https://' + (location.host || 'localhost').split(':')[0] +
-          ':35729/livereload.js?snipver=1"></' + 'script>')
-    </script> -->
 </body>
 
 </html>

@@ -31,6 +31,7 @@ function Component(attributes: ElementMeta) {
 
 function Listen(eventName: string) {
 	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
+
 		  const { onInit = noop, onDestroy = noop } = target;
 			const symbolHandler = Symbol(key);
 
