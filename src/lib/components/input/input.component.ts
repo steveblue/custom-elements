@@ -1,4 +1,4 @@
-import { Component, html, css } from '../../../decorators/component';
+import { Component, Listen, css } from '../../../decorators/component';
 import { InputComponent } from './../../../component/component';
 
 @Component({
@@ -15,14 +15,12 @@ class MyInputComponent extends InputComponent {
 	constructor() {
 		super();
 	}
-	connectedCallback() {
-		this.addEventListener('blur', this.onBlur);
-		this.addEventListener('focus', this.onFocus);
-	}
+	@Listen('focus')
 	onFocus(event) {
 		console.log(this, event);
 		this.value = 'input';
 	}
+	@Listen('blur')
 	onBlur(event) {
 		console.log(this, event);
 	}

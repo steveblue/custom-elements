@@ -1,4 +1,4 @@
-import { Component, html, css, getSiblings, getElementIndex } from '../../../decorators/component';
+import { Component, Listen, html, css, getSiblings, getElementIndex } from '../../../decorators/component';
 import { CustomElement } from './../../../component/component';
 
 @Component({
@@ -23,20 +23,36 @@ class MyListComponent extends CustomElement {
 		super();
 		this.currentIndex = 0;
 	}
-
 	deactivateElement(elem: HTMLElement) {
 		elem.setAttribute('tabindex', '-1');
 		elem.querySelector('my-item').setAttribute('state', '');
 	}
-
 	activateElement(elem: HTMLElement) {
 		elem.setAttribute('tabindex', '0');
 		elem.querySelector('my-item').setAttribute('state', '--selected');
 	}
-
 	connectedCallback() {
 		this.setAttribute('tabindex', '0');
-		this.addEventListener('keydown', (ev: KeyboardEvent) => {
+	}
+	@Listen('focus')
+	onFocus(ev: FocusEvent) {
+			for (let li of this.children[0].children) {
+				if (li === this.children[0].children[this.currentIndex]) {
+					this.activateElement(li);
+				} else {
+					this.deactivateElement(li);
+				}
+				li.addEventListener('click', (ev: MouseEvent) => {
+					getSiblings(li).forEach((elem: HTMLElement) => {
+						this.deactivateElement(elem);
+					});
+					this.activateElement(li);
+					this.onSubmit(ev);
+				});
+			}
+	}
+	@Listen('keydown')
+	onKeydown(ev: KeyboardEvent) {
 			let currentElement = this.querySelector('[tabindex]:not([tabindex="-1"])');
 			let siblings = getSiblings(currentElement);
 			this.currentIndex = getElementIndex(currentElement);
@@ -73,23 +89,6 @@ class MyListComponent extends CustomElement {
 					}
 				});
 			}
-		});
-		this.addEventListener('focus', (ev: FocusEvent) => {
-			for (let li of this.children[0].children) {
-				if (li === this.children[0].children[this.currentIndex]) {
-					this.activateElement(li);
-				} else {
-					this.deactivateElement(li);
-				}
-				li.addEventListener('click', (ev: MouseEvent) => {
-					getSiblings(li).forEach((elem: HTMLElement) => {
-						this.deactivateElement(elem);
-					});
-					this.activateElement(li);
-					this.onSubmit(ev);
-				});
-			}
-		});
 	}
 	onSubmit(event) {
 		console.log(this, event);

@@ -10,22 +10,51 @@ const html = (...args) => {
 const css = (...args) => {
 	return args;
 };
+const noop = () => {};
 
 function compileTemplate(elementMeta: ElementMeta, target: Function) {
-	target.prototype.elementMeta = elementMeta;
+	target.prototype.elementMeta = Object.assign({}, elementMeta);
 	target.prototype.template = document.createElement('template');
 	target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
 }
 
 function Component(attributes: ElementMeta) {
-	return (target: any) => {
-		const customElement = function(...args: any[]) {};
-		if (attributes !== undefined && attributes !== null) {
-			compileTemplate(attributes, target);
-		}
-		customElement.prototype = target.prototype;
+	if (!attributes) {
+		console.warn('Component must include ElementMeta to compile');
+		return;
+	}
+	return (target: Function) => {
+		compileTemplate(attributes, target);
 		return target;
 	};
+}
+
+function Listen(eventName: string) {
+	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
+		  const { onInit = noop, onDestroy = noop } = target;
+			const symbolHandler = Symbol(key);
+
+			function addListener() {
+				const handler = this[symbolHandler] = (...args) => {
+					descriptor.value.apply(this, args);
+				};
+				this.addEventListener(eventName, handler);
+			}
+
+			function removeListener() {
+				this.removeEventListener(eventName, this[symbolHandler]);
+			}
+
+			target.onInit = function onInitWrapper() {
+				onInit.call(this);
+				addListener.call(this);
+			};
+
+			target.onDestroy = function onDestroyWrapper() {
+				onDestroy.call(this)
+				removeListener.call(this);
+			}
+	}
 }
 
 function attachShadow(instance: any, options: any) {
@@ -68,7 +97,9 @@ function getElementIndex(el) {
 export {
 	ElementMeta,
 	Component,
+	Listen,
 	compileTemplate,
+	attachEvents,
 	attachDOM,
 	attachStyle,
 	attachShadow,

@@ -1,4 +1,4 @@
-import { Component, html, css } from '../../../decorators/component';
+import { Component, Listen, html, css, attachEvents } from '../../../decorators/component';
 import { ButtonComponent } from './../../../component/component';
 
 @Component({
@@ -19,9 +19,7 @@ class MyButtonComponent extends ButtonComponent {
 	constructor() {
 		super();
 	}
-	connectedCallback() {
-		this.addEventListener('click', this.onClick);
-	}
+	@Listen('click')
 	onClick(event) {
 		console.log(this, event);
 	}
