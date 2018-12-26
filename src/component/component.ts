@@ -17,24 +17,29 @@ export class AllCollectionComponent extends HTMLAllCollection {
 export class AnchorComponent extends HTMLAnchorElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class AreaComponent extends HTMLAreaElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class AudioComponent extends HTMLAudioElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class BRComponent extends HTMLBRElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -56,6 +61,7 @@ export class ButtonComponent extends HTMLButtonElement {
 export class CanvasComponent extends HTMLCanvasElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -74,6 +80,8 @@ export class ContentComponent extends HTMLContentElement {
 export class DListComponent extends HTMLDListElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -86,27 +94,28 @@ export class DataComponent extends HTMLDataElement {
 export class DataListComponent extends HTMLDataListElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class DetailsComponent extends HTMLDetailsElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class DialogComponent extends HTMLDialogElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
-export class DirectoryComponent extends HTMLDirectoryElement {
-	constructor() {
-		super();
-		if (this.onInit) this.onInit();
-	}
-}
+
 export class DivComponent extends HTMLDivElement {
 	constructor() {
 		super();
@@ -123,18 +132,14 @@ export class DivComponent extends HTMLDivElement {
 export class EmbedComponent extends HTMLEmbedElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class FieldSetComponent extends HTMLFieldSetElement {
 	constructor() {
 		super();
-		if (this.onInit) this.onInit();
-	}
-}
-export class FontComponent extends HTMLFontElement {
-	constructor() {
-		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -147,24 +152,14 @@ export class FormControlsComponent extends HTMLFormControlsCollection {
 export class FormComponent extends HTMLFormElement {
 	constructor() {
 		super();
-		if (this.onInit) this.onInit();
-	}
-}
-export class FrameComponent extends HTMLFrameElement {
-	constructor() {
-		super();
-		if (this.onInit) this.onInit();
-	}
-}
-export class FrameSetComponent extends HTMLFrameSetElement {
-	constructor() {
-		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class HRComponent extends HTMLHRElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -190,12 +185,14 @@ export class HtmlComponent extends HTMLHtmlElement {
 export class IFrameComponent extends HTMLIFrameElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class ImageComponent extends HTMLImageElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -209,39 +206,42 @@ export class InputComponent extends HTMLInputElement {
 export class LIComponent extends HTMLLIElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class LabelComponent extends HTMLLabelElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class LegendComponent extends HTMLLegendElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class LinkComponent extends HTMLLinkElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class MapComponent extends HTMLMapElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
-export class MarqueeComponent extends HTMLMarqueeElement {
-	constructor() {
-		super();
-		if (this.onInit) this.onInit();
-	}
-}
+
 export class MediaComponent extends HTMLMediaElement {
 	constructor() {
 		super();
@@ -263,6 +263,7 @@ export class MetaComponent extends HTMLMetaElement {
 export class MeterComponent extends HTMLMeterElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -275,12 +276,15 @@ export class ModComponent extends HTMLModElement {
 export class OListComponent extends HTMLOListElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class ObjectComponent extends HTMLObjectElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -305,6 +309,7 @@ export class OptionsCollectionComponent extends HTMLOptionsCollection {
 export class OutputComponent extends HTMLOutputElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -409,6 +414,8 @@ export class TableColComponent extends HTMLTableColElement {
 export class TableComponent extends HTMLTableElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -416,12 +423,16 @@ export class TableComponent extends HTMLTableElement {
 export class TableRowComponent extends HTMLTableRowElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
 export class TableSectionComponent extends HTMLTableSectionElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -439,6 +450,7 @@ export class TemplateComponent extends HTMLTemplateElement {
 export class TimeComponent extends HTMLTimeElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -457,6 +469,8 @@ export class TrackComponent extends HTMLTrackElement {
 export class UListComponent extends HTMLUListElement {
 	constructor() {
 		super();
+		attachDOM(this);
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
@@ -470,6 +484,7 @@ export class UnknownComponent extends HTMLUnknownElement {
 export class VideoComponent extends HTMLVideoElement {
 	constructor() {
 		super();
+		attachStyle(this);
 		if (this.onInit) this.onInit();
 	}
 }
