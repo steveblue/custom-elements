@@ -43,6 +43,7 @@ function attachShadow(instance: any, options: any) {
 
 ### Examples
 
+See the production output of these Components on [Github Pages](https://steveblue.github.io/custom-elements/).
 
 With functions available in `src/decorators/component.ts` you can use the following syntax to create a Custom Element. In this example MyListComponent extends from HTMLElement making it an autonomous Custom Element. This means we can compile ShadowDOM inside the new Element by calling attachShadow and take advantage of slots so the user can define a custom template.
 
