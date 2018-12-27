@@ -1,4 +1,4 @@
-import { Component, html, css, getSiblings } from '../../../decorators/component';
+import { Component, Listen, html, css } from '../../../decorators/component';
 import { CustomElement } from './../../../component/component';
 
 @Component({
@@ -24,6 +24,11 @@ class MyItemComponent extends CustomElement {
 	constructor() {
 		super();
 	}
+	@Listen('bang')
+	onBang(event) {
+		this.getAttribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
+	}
+
 }
 
 export { MyItemComponent };

@@ -1,4 +1,4 @@
-import { Component, Listen, html, css, attachEvents } from '../../../decorators/component';
+import { Component, Emitter, Listen, html, css, querySelectorAll } from '../../../decorators/component';
 import { ButtonComponent } from './../../../component/component';
 
 @Component({
@@ -16,12 +16,17 @@ import { ButtonComponent } from './../../../component/component';
 	`,
 })
 class MyButtonComponent extends ButtonComponent {
+
 	constructor() {
 		super();
 	}
+	@Emitter('bang')
 	@Listen('click')
 	onClick(event) {
-		console.log(this, event);
+		const emittedEvent = new CustomEvent('bang', { bubbles: true });
+		querySelectorAll('my-item').forEach((elem: Element) => {
+			elem.emitter.emit( emittedEvent );
+		});
 	}
 }
 

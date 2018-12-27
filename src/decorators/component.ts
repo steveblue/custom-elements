@@ -12,10 +12,19 @@ const css = (...args) => {
 };
 const noop = () => {};
 
+class EventDispatcher {
+		constructor(context) { this.target = context; };
+		emit(ev: Event) {
+			this.target.dispatchEvent(ev);
+		}
+}
+
 function compileTemplate(elementMeta: ElementMeta, target: Function) {
-	target.prototype.elementMeta = Object.assign({}, elementMeta);
+	target.prototype.elementMeta = Object.assign({ events: {} }, elementMeta);
 	target.prototype.template = document.createElement('template');
 	target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
+	target.prototype.getEvent = function (eventName: string) { return this.elementMeta.events[eventName]; };
+	target.prototype.setEvent = function (eventName: string, eventModel: Event) { return this.elementMeta.events[eventName] = eventModel; };
 }
 
 function Component(attributes: ElementMeta) {
@@ -29,6 +38,29 @@ function Component(attributes: ElementMeta) {
 	};
 }
 
+function Emitter(eventName: string, options: Event) {
+
+	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
+
+		  const { onInit = noop } = target;
+			const symbolHandler = Symbol(key);
+
+			function addEvent() {
+				const handler = this[symbolHandler] = (...args) => {
+					descriptor.value.apply(this, args);
+				};
+				this.elementMeta.events[eventName] = new CustomEvent(eventName, options ? options : {});
+				this.emitter = new EventDispatcher(this);
+			}
+
+			target.onInit = function onInitWrapper() {
+				onInit.call(this);
+				addEvent.call(this);
+			};
+	}
+}
+
+
 function Listen(eventName: string) {
 	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
 
@@ -40,6 +72,7 @@ function Listen(eventName: string) {
 					descriptor.value.apply(this, args);
 				};
 				this.addEventListener(eventName, handler);
+				this.emitter = new EventDispatcher(this);
 			}
 
 			function removeListener() {
@@ -82,6 +115,14 @@ function getParent(el) {
 	return el.parentNode;
 }
 
+function querySelector(selector: string) {
+	return document.querySelector(selector);
+}
+
+function querySelectorAll(selector: string) {
+	return Array.from(document.querySelectorAll(selector));
+}
+
 function getSiblings(el, filter) {
 	if (!filter) {
 		filter = [];
@@ -98,6 +139,7 @@ function getElementIndex(el) {
 export {
 	ElementMeta,
 	Component,
+	Emitter,
 	Listen,
 	compileTemplate,
 	attachEvents,
@@ -107,6 +149,8 @@ export {
 	getSiblings,
 	getElementIndex,
 	getParent,
+	querySelector,
+	querySelectorAll,
 	html,
 	css,
 };
