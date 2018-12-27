@@ -43,12 +43,8 @@ function Emitter(eventName: string, options: Event) {
 	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
 
 		  const { onInit = noop } = target;
-			const symbolHandler = Symbol(key);
 
 			function addEvent() {
-				const handler = this[symbolHandler] = (...args) => {
-					descriptor.value.apply(this, args);
-				};
 				this.elementMeta.events[eventName] = new CustomEvent(eventName, options ? options : {});
 				this.emitter = new EventDispatcher(this);
 			}
