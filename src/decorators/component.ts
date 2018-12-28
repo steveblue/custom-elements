@@ -13,14 +13,26 @@ const css = (...args) => {
 const noop = () => {};
 
 class EventDispatcher {
-		constructor(context) { this.target = context; };
-		emit(ev: Event) {
-			this.target.dispatchEvent(ev);
+		public target: Element;
+		public events: any;
+		constructor(context) {
+			this.target = context;
+			this.events = {};
+		}
+		get(eventName: string) {
+			return this.events[eventName];
+		}
+		set(eventName: string, ev: CustomEvent | Event) {
+			this.events[eventName] = ev;
+			return this.get(eventName);
+		}
+		emit(ev: Event | string) {
+			(typeof ev === 'string') ? this.target.dispatchEvent(this.events[ev]) : this.target.dispatchEvent(ev);
 		}
 }
 
 function compileTemplate(elementMeta: ElementMeta, target: Function) {
-	target.prototype.elementMeta = Object.assign({ events: {} }, elementMeta);
+	target.prototype.elementMeta = Object.assign({}, elementMeta);
 	target.prototype.template = document.createElement('template');
 	target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
 	target.prototype.getEvent = function (eventName: string) { return this.elementMeta.events[eventName]; };
@@ -45,8 +57,10 @@ function Emitter(eventName: string, options: Event) {
 		  const { onInit = noop } = target;
 
 			function addEvent() {
-				this.elementMeta.events[eventName] = new CustomEvent(eventName, options ? options : {});
-				this.emitter = new EventDispatcher(this);
+				if (!this.emitter) {
+					this.emitter = new EventDispatcher(this);
+				}
+				this.emitter.set(eventName, new CustomEvent(eventName, options ? options : {}));
 			}
 
 			target.onInit = function onInitWrapper() {
@@ -67,8 +81,11 @@ function Listen(eventName: string) {
 				const handler = this[symbolHandler] = (...args) => {
 					descriptor.value.apply(this, args);
 				};
+				if (!this.emitter) {
+					this.emitter = new EventDispatcher(this);
+				}
 				this.addEventListener(eventName, handler);
-				this.emitter = new EventDispatcher(this);
+
 			}
 
 			function removeListener() {

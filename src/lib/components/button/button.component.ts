@@ -23,8 +23,9 @@ class MyButtonComponent extends ButtonComponent {
 	@Emitter('bang')
 	@Listen('click')
 	onClick(event) {
+		const bang = this.emitter.get('bang');
 		querySelectorAll('my-item').forEach((elem: Element) => {
-			elem.emitter.emit( this.elementMeta.events['bang'] );
+			elem.emitter.emit(bang);
 		});
 	}
 }
