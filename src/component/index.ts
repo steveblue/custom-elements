@@ -1,4 +1,4 @@
-import { attachDOM, attachStyle, attachShadow, attachEvents } from './../decorators/component';
+import { attachDOM, attachStyle, attachShadow, attachEvents } from './../element/index';
 
 export class CustomElement extends HTMLElement {
 	constructor() {

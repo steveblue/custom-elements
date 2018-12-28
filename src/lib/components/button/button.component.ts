@@ -1,5 +1,4 @@
-import { Component, Emitter, Listen, html, css, querySelectorAll } from '../../../decorators/component';
-import { ButtonComponent } from './../../../component/component';
+import { Component, Emitter, Listen, html, css, querySelectorAll, ButtonComponent } from '../../../index';
 
 @Component({
 	selector: 'my-button',

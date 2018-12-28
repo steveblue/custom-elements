@@ -1,5 +1,4 @@
-import { Component, Listen, html, css, getSiblings, getElementIndex } from '../../../decorators/component';
-import { CustomElement } from './../../../component/component';
+import { Component, Listen, html, css, getSiblings, getElementIndex, CustomElement } from '../../../index';
 
 @Component({
 	selector: 'my-list',

@@ -1,5 +1,4 @@
-import { Component, Listen, css } from '../../../decorators/component';
-import { InputComponent } from './../../../component/component';
+import { Component, Listen, css, InputComponent } from '../../../index';
 
 @Component({
 	selector: 'my-input',
