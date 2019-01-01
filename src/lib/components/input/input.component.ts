@@ -25,4 +25,6 @@ class MyInputComponent extends InputComponent {
 	}
 }
 
+customElements.define('my-input', MyInputComponent, { extends: 'input'});
+
 export { MyInputComponent };

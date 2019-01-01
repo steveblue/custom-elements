@@ -94,4 +94,6 @@ class MyListComponent extends CustomElement {
 	}
 }
 
+customElements.define('my-list', MyListComponent);
+
 export { MyListComponent };

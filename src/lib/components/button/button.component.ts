@@ -29,4 +29,6 @@ class MyButtonComponent extends ButtonComponent {
 	}
 }
 
+customElements.define('my-button', MyButtonComponent, { extends: 'button'});
+
 export { MyButtonComponent };

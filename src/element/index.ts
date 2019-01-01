@@ -12,10 +12,14 @@ function attachDOM(instance: any, options: any) {
 }
 
 function attachStyle(instance: any, options: any) {
-	const t = document.createElement('style');
-	t.innerText = instance.elementMeta.style;
-	t.innerText = t.innerText.replace(/:host/gi, `[is=${instance.elementMeta.selector}]`);
-	document.head.appendChild(t);
+	const id = `${instance.elementMeta.selector}`;
+	if (!document.getElementById(`${id}-x`)) {
+		const t = document.createElement('style');
+		t.setAttribute('id', `${id}-x`);
+		t.innerText = instance.elementMeta.style;
+		t.innerText = t.innerText.replace(/:host/gi, `[is=${id}]`);
+		document.head.appendChild(t);
+	}
 }
 
 function getParent(el) {

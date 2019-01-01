@@ -2,37 +2,26 @@
 <html class="no-js" lang="">
 
 <head>
+    <base href="/">
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--<link rel="manifest" href="site.webmanifest">-->
-    <!--<link rel="apple-touch-icon" href="icon.png">-->
-    <!-- Place favicon.ico in the root directory -->
+    <title>Web Components</title>
 
     <link rel="stylesheet" href="style/main.css">
-    <script src="lib/@ungap/custom-elements-builtin/custom-elements-builtin.min.js"></script>
+    <script src="polyfill.js"></script>
+    <script src="vendor.js"></script>
+
 </head>
 
 <body>
 
-    <h3>Custom Elements</h3>
-    <my-list>
-        <ul slot="menu">
-            <li><my-item><span slot="msg">Make</span></my-item></li>
-            <li><my-item><span slot="msg">Custom</span></my-item></li>
-            <li><my-item><span slot="msg">Elements</span></my-item></li>
-            <li><my-item><span slot="msg">Accessible</span></my-item></li>
-        </ul>
-    </my-list>
-    <br />
-    <br />
-    <button is="my-button" id="button"></button>
-    <input is="my-input" type="text">
-
+    <div id="app"></div>
     <script src="main.js"></script>
+
 </body>
 
 </html>

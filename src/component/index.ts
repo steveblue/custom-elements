@@ -1,5 +1,14 @@
 import { attachDOM, attachStyle, attachShadow, attachEvents } from './../element/index';
 
+export class NewElement extends HTMLElement {
+	constructor() {
+		super();
+		attachDOM(this);
+		attachStyle(this);
+		if (this.onInit) this.onInit();
+	}
+}
+
 export class CustomElement extends HTMLElement {
 	constructor() {
 		super();

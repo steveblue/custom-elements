@@ -8,6 +8,7 @@
     "seed": "mkdir dist && mkdir dist/style",
     "start": "node index.js",
     "build": "NODE_ENV=prod node index.js",
+    "dev": "live-server ./dist --entry-file=index.html",
     "serve": "node backend/server.js"
   },
   "repository": {
@@ -33,6 +34,7 @@
   "homepage": "https://github.com/steveblue/custom-elements#readme",
   "dependencies": {
     "@ungap/custom-elements-builtin": "^0.1.2",
+    "@vaadin/router": "^1.2.0",
     "@webcomponents/custom-elements": "^1.2.1",
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "compression": "^1.7.3",
@@ -47,10 +49,12 @@
     "livereload": "^0.7.0",
     "postcss": "^7.0.7",
     "postcss-csso": "^3.0.0",
-    "rollup": "^0.65.2",
+    "rollup": "^0.66.0",
     "rollup-plugin-minify-html-literals": "^1.1.2",
     "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.0",
+    "rollup-plugin-uglify": "^6.0.0",
     "terser": "^3.11.0",
     "tslib": "^1.9.3",
     "typescript": "^3.2.1"

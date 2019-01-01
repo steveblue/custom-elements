@@ -1,9 +1,14 @@
-import { MyButtonComponent } from './lib/components/button/button.component';
-import { MyInputComponent } from './lib/components/input/input.component';
-import { MyListComponent } from './lib/components/list/list.component';
-import { MyItemComponent } from './lib/components/item/item.component';
+import { App } from './app';
 
-customElements.define('my-item', MyItemComponent);
-customElements.define('my-list', MyListComponent);
-customElements.define('my-input', MyInputComponent, { extends: 'input'});
-customElements.define('my-button', MyButtonComponent, { extends: 'button'});
+const app = new App().bootstrap();
+
+// Library Components
+export { MyButtonComponent } from './lib/components/button/button.component';
+export { MyInputComponent } from './lib/components/input/input.component';
+export { MyListComponent } from './lib/components/list/list.component';
+export { MyItemComponent } from './lib/components/item/item.component';
+
+
+// View Components
+export { HomeView } from './view/home.view';
+export { ChapterOneView } from './view/chapter1.view';
