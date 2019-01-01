@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
-import inlineCSS from './rollup.cssnano-plugin';
+import inlinePostCSS from './rollup.cssnano-plugin';
 
 export default [
     {
@@ -45,7 +45,7 @@ export default [
         plugins: [
             resolve(),
             minifyHTML(),
-            inlineCSS(),
+            inlinePostCSS(),
             typescript()
         ],
         onwarn: ( warning, next ) => {
