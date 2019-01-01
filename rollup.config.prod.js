@@ -2,7 +2,7 @@ import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
-import inlinePostCSS from './rollup.cssnano-plugin';
+import inlinePostCSS from 'rollup-plugin-inline-postcss';
 
 export default [
     {
