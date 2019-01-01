@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import inlineCSS from './rollup.cssnano-plugin';
@@ -8,7 +9,8 @@ export default [
         input: 'src/polyfill.ts',
         plugins: [
             resolve(),
-            typescript()
+            typescript(),
+            terser()
         ],
         onwarn: ( warning, next ) => {
             if ( warning.code === 'THIS_IS_UNDEFINED' ) return;
@@ -26,7 +28,8 @@ export default [
         input: 'src/vendor.ts',
         plugins: [
             resolve(),
-            typescript()
+            typescript(),
+            terser()
         ],
         onwarn: ( warning, next ) => {
             if ( warning.code === 'THIS_IS_UNDEFINED' ) return;
@@ -46,7 +49,8 @@ export default [
             resolve(),
             minifyHTML(),
             inlineCSS(),
-            typescript()
+            typescript(),
+            terser()
         ],
         onwarn: ( warning, next ) => {
             if ( warning.code === 'THIS_IS_UNDEFINED' ) return;
@@ -55,6 +59,7 @@ export default [
         output: {
             name: 'app',
             file: 'dist/main.js',
-            format: 'iife'
+            format: 'iife',
+            sourcemap: true
         }
     }];
