@@ -4,12 +4,10 @@ import { RouteConfig, routeConfig } from './app.routes';
 
 export class App {
 
-  routes: RouteConfig[] = [];
-  rootSelector: string;
+  public routes: RouteConfig[] = [];
+  public rootSelector: string;
 
-  constructor() {}
-
-  configureRouter(config: RouteConfig, outletSelector?: string) {
+  public configureRouter(config: RouteConfig, outletSelector?: string) {
     this.routes = config || routeConfig;
     this.rootSelector = outletSelector ? outletSelector : this.rootSelector ? this.rootSelector : '#app';
     const outlet = document.querySelector(this.rootSelector);
@@ -17,7 +15,7 @@ export class App {
     router.setRoutes(this.routes);
   }
 
-  bootstrap(selector?: string) {
+  public bootstrap(selector?: string) {
 
     this.configureRouter(routeConfig, selector);
     return this;

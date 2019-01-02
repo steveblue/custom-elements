@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "seed": "mkdir dist && mkdir dist/style",
     "start": "node index.js",
     "build": "NODE_ENV=prod node index.js",
@@ -63,6 +64,7 @@
     "rollup-plugin-uglify": "^6.0.0",
     "terser": "^3.11.0",
     "tslib": "^1.9.3",
+    "tslint": "^5.12.0",
     "typescript": "^3.2.1"
   }
 }

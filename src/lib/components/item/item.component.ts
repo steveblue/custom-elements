@@ -1,13 +1,13 @@
-import { XComponent, XListen, XCustomElement, html, css } from '../../../index';
+import { css, html, XComponent, XCustomElement, XListen } from '../../../index';
 
 @XComponent({
-	selector: 'my-item',
-	template: html`
+  selector: 'my-item',
+  template: html`
 		<p>
 			<span><slot name="msg">item</slot></span>
 		</p>
 	`,
-	style: css`
+  style: css`
 		:host {
 			display: block;
 			cursor: pointer;
@@ -20,13 +20,13 @@ import { XComponent, XListen, XCustomElement, html, css } from '../../../index';
 	`,
 })
 class MyItemComponent extends XCustomElement {
-	constructor() {
-		super();
-	}
-	@XListen('bang')
-	onBang(event) {
-		this.getAttribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
-	}
+  constructor() {
+    super();
+  }
+  @XListen('bang')
+  public onBang(event) {
+    this.getAttribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
+  }
 
 }
 

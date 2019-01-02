@@ -1,8 +1,8 @@
-import { XComponent, XCustomElement, html, css } from './../index';
+import { css, html, XComponent, XCustomElement } from './../index';
 
 @XComponent({
-	selector: 'home-view',
-	template: html`
+  selector: 'home-view',
+  template: html`
 		<h3>Custom Elements</h3>
     <my-list>
         <ul slot="menu">
@@ -18,7 +18,7 @@ import { XComponent, XCustomElement, html, css } from './../index';
     <input is="my-input" type="text">
     <a href="/chapter-1">Chapter 1</a>
 	`,
-	style: css`
+  style: css`
         button, input {
 
             color: white;
@@ -71,9 +71,9 @@ import { XComponent, XCustomElement, html, css } from './../index';
 })
 class HomeView extends XCustomElement {
 
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
 }
 
