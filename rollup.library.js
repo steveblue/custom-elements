@@ -1,12 +1,19 @@
 import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
+import cleanup from 'rollup-plugin-cleanup';
 import { terser } from 'rollup-plugin-terser';
+
+const clean = {
+    comments: ['none'],
+    extensions: ['ts', 'js']
+};
 
 export default [{
     input: 'src/index.ts',
     plugins: [
         resolve(),
-        typescript()
+        typescript(),
+        cleanup(clean)
     ],
     onwarn: ( warning, next ) => {
         if ( warning.code === 'THIS_IS_UNDEFINED' ) return;
@@ -23,6 +30,7 @@ export default [{
     plugins: [
         resolve(),
         typescript(),
+        cleanup(clean),
         terser()
     ],
     onwarn: ( warning, next ) => {
@@ -39,7 +47,8 @@ export default [{
     input: 'src/index.ts',
     plugins: [
         resolve(),
-        typescript()
+        typescript(),
+        cleanup(clean)
     ],
     onwarn: ( warning, next ) => {
         if ( warning.code === 'THIS_IS_UNDEFINED' ) return;
@@ -48,7 +57,7 @@ export default [{
     output: {
         file: 'packages/@webx/core/bundles/core.js',
         format: 'cjs',
-        sourcemap: true
+        sourcemap: false
     }
 },
 {
@@ -56,6 +65,7 @@ export default [{
     plugins: [
         resolve(),
         typescript(),
+        cleanup(clean),
         terser()
     ],
     onwarn: ( warning, next ) => {
