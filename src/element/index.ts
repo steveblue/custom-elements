@@ -1,17 +1,17 @@
-function attachShadow(instance: any, options: any) {
+function xattachShadow(instance: any, options: any) {
 	const shadowRoot: ShadowRoot = instance.attachShadow(options || {});
 	const t = document.createElement('template');
 	t.innerHTML = instance.template;
 	shadowRoot.appendChild(t.content.cloneNode(true));
 }
 
-function attachDOM(instance: any, options: any) {
+function xattachDOM(instance: any, options: any) {
 	const t = document.createElement('template');
 	t.innerHTML = instance.elementMeta.template;
 	instance.appendChild(t.content.cloneNode(true));
 }
 
-function attachStyle(instance: any, options: any) {
+function xattachStyle(instance: any, options: any) {
 	const id = `${instance.elementMeta.selector}`;
 	if (!document.getElementById(`${id}-x`)) {
 		const t = document.createElement('style');
@@ -22,38 +22,38 @@ function attachStyle(instance: any, options: any) {
 	}
 }
 
-function getParent(el) {
+function xgetParent(el) {
 	return el.parentNode;
 }
 
-function querySelector(selector: string) {
+function xquerySelector(selector: string) {
 	return document.querySelector(selector);
 }
 
-function querySelectorAll(selector: string) {
+function xquerySelectorAll(selector: string) {
 	return Array.from(document.querySelectorAll(selector));
 }
 
-function getSiblings(el, filter) {
+function xgetSiblings(el, filter) {
 	if (!filter) {
 		filter = [];
 	}
-	return Array.from(getParent(el).children).filter(elem => {
+	return Array.from(xgetParent(el).children).filter(elem => {
 		return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
 	});
 }
 
-function getElementIndex(el) {
-	return getSiblings(el).indexOf(el);
+function xgetElementIndex(el) {
+	return xgetSiblings(el).indexOf(el);
 }
 
 export {
-	attachDOM,
-	attachStyle,
-	attachShadow,
-	getSiblings,
-	getElementIndex,
-	getParent,
-	querySelector,
-	querySelectorAll
+	xattachDOM,
+	xattachStyle,
+	xattachShadow,
+	xgetSiblings,
+	xgetElementIndex,
+	xgetParent,
+	xquerySelector,
+	xquerySelectorAll
 }

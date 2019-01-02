@@ -1,6 +1,6 @@
-import { Component, Emitter, Listen, html, css, querySelectorAll, CustomElement } from './../index';
+import { XComponent, XCustomElement, html, css } from './../index';
 
-@Component({
+@XComponent({
 	selector: 'home-view',
 	template: html`
 		<h3>Custom Elements</h3>
@@ -69,7 +69,7 @@ import { Component, Emitter, Listen, html, css, querySelectorAll, CustomElement 
         [is=my-input]{background:#181818;border:0;color:#fff}
 	`,
 })
-class HomeView extends CustomElement {
+class HomeView extends XCustomElement {
 
 	constructor() {
 		super();

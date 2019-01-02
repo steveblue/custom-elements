@@ -1,6 +1,6 @@
-import { Component, Emitter, Listen, html, css, querySelectorAll, CustomElement } from './../index';
+import { XComponent, XCustomElement, html, css } from './../index';
 
-@Component({
+@XComponent({
 	selector: 'chapter1-view',
 	template: html`
 		<h3>Chapter 1</h3>
@@ -10,7 +10,7 @@ import { Component, Emitter, Listen, html, css, querySelectorAll, CustomElement 
 
 	`,
 })
-class ChapterOneView extends CustomElement {
+class ChapterOneView extends XCustomElement {
 
 	constructor() {
 		super();

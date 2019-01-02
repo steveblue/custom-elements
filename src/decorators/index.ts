@@ -1,4 +1,4 @@
-interface ElementMeta {
+interface XElementMeta {
 	selector: string;
 	style?: string;
 	template?: string;
@@ -14,7 +14,7 @@ const css = (...args) => {
 
 const noop = () => {};
 
-class EventDispatcher {
+class XEventDispatcher {
 		public target: Element;
 		public events: any;
 		constructor(context) {
@@ -33,7 +33,7 @@ class EventDispatcher {
 		}
 }
 
-function compileTemplate(elementMeta: ElementMeta, target: Function) {
+function xcompileTemplate(elementMeta: XElementMeta, target: Function) {
 	target.prototype.elementMeta = Object.assign({}, elementMeta);
 	target.prototype.template = document.createElement('template');
 	target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
@@ -41,18 +41,18 @@ function compileTemplate(elementMeta: ElementMeta, target: Function) {
 	target.prototype.setEvent = function (eventName: string, eventModel: Event) { return this.elementMeta.events[eventName] = eventModel; };
 }
 
-function Component(attributes: ElementMeta) {
+function XComponent(attributes: XElementMeta) {
 	if (!attributes) {
-		console.warn('Component must include ElementMeta to compile');
+		console.warn('XComponent must include XElementMeta to compile');
 		return;
 	}
 	return (target: Function) => {
-		compileTemplate(attributes, target);
+		xcompileTemplate(attributes, target);
 		return target;
 	};
 }
 
-function Emitter(eventName: string, options: Event) {
+function XEmitter(eventName: string, options: Event) {
 
 	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
 
@@ -60,7 +60,7 @@ function Emitter(eventName: string, options: Event) {
 
 			function addEvent() {
 				if (!this.emitter) {
-					this.emitter = new EventDispatcher(this);
+					this.emitter = new XEventDispatcher(this);
 				}
 				this.emitter.set(eventName, new CustomEvent(eventName, options ? options : {}));
 			}
@@ -73,7 +73,7 @@ function Emitter(eventName: string, options: Event) {
 }
 
 
-function Listen(eventName: string) {
+function XListen(eventName: string) {
 	return function decorator(target: any, key: string | symbol, descriptor: PropertyDescriptor) {
 
 		  const { onInit = noop, onDestroy = noop } = target;
@@ -84,7 +84,7 @@ function Listen(eventName: string) {
 					descriptor.value.apply(this, args);
 				};
 				if (!this.emitter) {
-					this.emitter = new EventDispatcher(this);
+					this.emitter = new XEventDispatcher(this);
 				}
 				this.addEventListener(eventName, handler);
 
@@ -107,12 +107,12 @@ function Listen(eventName: string) {
 }
 
 export {
-	ElementMeta,
-	EventDispatcher,
-	Component,
-	Emitter,
-	Listen,
-	compileTemplate,
+	XElementMeta,
+	XEventDispatcher,
+	XComponent,
+	XEmitter,
+	XListen,
+	xcompileTemplate,
 	html,
 	css,
 	noop

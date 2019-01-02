@@ -1,6 +1,6 @@
-import { Component, Listen, html, css, getSiblings, getElementIndex, CustomElement } from '../../../index';
+import { XComponent, XListen, XCustomElement, html, css, xgetSiblings, xgetElementIndex,  } from '../../../index';
 
-@Component({
+@XComponent({
 	selector: 'my-list',
 	template: html`
 		<slot name="menu"></slot>
@@ -17,7 +17,7 @@ import { Component, Listen, html, css, getSiblings, getElementIndex, CustomEleme
 		}
 	`,
 })
-class MyListComponent extends CustomElement {
+class MyListComponent extends XCustomElement {
 	constructor() {
 		super();
 		this.currentIndex = 0;
@@ -33,7 +33,7 @@ class MyListComponent extends CustomElement {
 	connectedCallback() {
 		this.setAttribute('tabindex', '0');
 	}
-	@Listen('focus')
+	@XListen('focus')
 	onFocus(ev: FocusEvent) {
 			for (let li of this.children[0].children) {
 				if (li === this.children[0].children[this.currentIndex]) {
@@ -42,7 +42,7 @@ class MyListComponent extends CustomElement {
 					this.deactivateElement(li);
 				}
 				li.addEventListener('click', (ev: MouseEvent) => {
-					getSiblings(li).forEach((elem: HTMLElement) => {
+					xgetSiblings(li).forEach((elem: HTMLElement) => {
 						this.deactivateElement(elem);
 					});
 					this.activateElement(li);
@@ -50,11 +50,11 @@ class MyListComponent extends CustomElement {
 				});
 			}
 	}
-	@Listen('keydown')
+	@XListen('keydown')
 	onKeydown(ev: KeyboardEvent) {
 			let currentElement = this.querySelector('[tabindex]:not([tabindex="-1"])');
-			let siblings = getSiblings(currentElement);
-			this.currentIndex = getElementIndex(currentElement);
+			let siblings = xgetSiblings(currentElement);
+			this.currentIndex = xgetElementIndex(currentElement);
 			if (ev.keyCode === 13) {
 				this.onSubmit(ev);
 			}
@@ -66,7 +66,7 @@ class MyListComponent extends CustomElement {
 					this.currentIndex -= 1;
 				}
 				siblings.forEach((elem: HTMLElement) => {
-					if (getElementIndex(elem) === this.currentIndex) {
+					if (xgetElementIndex(elem) === this.currentIndex) {
 						this.activateElement(elem);
 					} else {
 						this.deactivateElement(elem);
@@ -81,7 +81,7 @@ class MyListComponent extends CustomElement {
 					this.currentIndex += 1;
 				}
 				siblings.forEach((elem: HTMLElement) => {
-					if (getElementIndex(elem) === this.currentIndex) {
+					if (xgetElementIndex(elem) === this.currentIndex) {
 						this.activateElement(elem);
 					} else {
 						this.deactivateElement(elem);
