@@ -1,6 +1,6 @@
-import { App } from './app';
+// import { App } from './app';
 
-const app = new App().bootstrap();
+// const app = new App().bootstrap();
 
 // Library Components
 export { MyButtonComponent } from './lib/components/button/button.component';
@@ -9,5 +9,5 @@ export { MyListComponent } from './lib/components/list/list.component';
 export { MyItemComponent } from './lib/components/item/item.component';
 
 // View Components
-export { HomeView } from './view/home.view';
-export { ChapterOneView } from './view/chapter1.view';
+// export { HomeView } from './view/home.view';
+// export { ChapterOneView } from './view/chapter1.view';

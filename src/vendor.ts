@@ -1,1 +1,1 @@
-export { Router } from '@vaadin/router';
+// export { Router } from '@vaadin/router';
