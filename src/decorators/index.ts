@@ -44,12 +44,16 @@ class EventDispatcher {
       return this.get(eventName);
     }
     public emit(ev: Event | string) {
-      (typeof ev === 'string') ? this.target.dispatchEvent(this.events[ev]) : this.target.dispatchEvent(ev);
+      if (typeof ev === 'string') ev = this.events[ev];
+      this.target.dispatchEvent(ev);
     }
     public broadcast(ev: Event | string, name?: string) {
       if (typeof ev === 'string') ev = this.events[ev];
+      this.target.dispatchEvent(ev);
+
       ev = { type: ev.type, detail: ev.detail };
       if (ev.detail === null) delete ev.detail;
+
       (name) ? this.channels[name].postMessage(ev) : this.channels['default'].postMessage(ev);
     }
     public setChannel(name: string) {

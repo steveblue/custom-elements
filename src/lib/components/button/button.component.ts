@@ -19,7 +19,7 @@ class MyButtonComponent extends ButtonComponent {
   constructor() {
     super();
   }
-  @Emitter('bang')
+  @Emitter('bang', { bubbles: true, composed: true })
   @Listen('click')
   public onClick(event) {
 			this.emitter.broadcast('bang');

@@ -3,7 +3,7 @@ import { css, html, Component, CustomElement } from './../index';
 @Component({
   selector: 'chapter1-view',
   template: html`
-		<h3>Chapter 1</h3>
+		<h3>Another View</h3>
 		<a href="/">Home</a>
 	`,
   style: css`

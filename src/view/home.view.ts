@@ -14,9 +14,9 @@ import { css, html, Component, Listen, CustomElement } from './../index';
     </my-list>
     <br />
     <br />
-    <button is="my-button" id="button"></button>
+    <button is="my-button"></button>
     <input is="my-input" type="text">
-    <a href="/chapter-1">Chapter 1</a>
+    <a href="/chapter-1">Link</a>
 	`,
   style: css`
         button, input {
@@ -74,11 +74,9 @@ class HomeView extends CustomElement {
   constructor() {
     super();
   }
-
   @Listen('bang')
   public onBang(event) {
-		console.log(event);
-    //this.get  Attribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
+	console.log(event);
   }
 
 }
