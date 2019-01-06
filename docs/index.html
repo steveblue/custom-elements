@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
 
 <head>
@@ -12,16 +12,31 @@
     <title>Web Components</title>
 
     <link rel="stylesheet" href="style/main.css">
-    <script src="polyfill.js"></script>
-    <script src="vendor.js"></script>
 
+    <script src="polyfill.js" type="text/javascript"></script>
+    <script src="vendor.js" type="text/javascript"></script>
 
 </head>
 
 <body>
 
     <div id="app"></div>
-    <script src="main.js"></script>
+
+    <script src="main.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    (function () {
+        // Retrieve the URL the user was trying to access when receiving the 404.
+        var redirect = sessionStorage.redirect;
+        // Remove the URL from sessionStorage.
+        delete sessionStorage.redirect;
+        // Check if we actually need to redirect.
+        if (redirect && redirect != location.href) {
+        // We need to redirect to the URL the user was trying to access.
+        history.replaceState(null, null, redirect);
+        }
+    })();
+    </script>
 
 </body>
 

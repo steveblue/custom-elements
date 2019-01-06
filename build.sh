@@ -9,6 +9,7 @@ if [[ ! -e dist/style ]]; then
 fi
 
 cp src/index.html dist/index.html
+cp src/404.html dist/404.html
 
 node_modules/.bin/postcss src/style/main.css --output dist/style/main.css
 
