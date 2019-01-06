@@ -1,6 +1,6 @@
-import { css, html, XButtonComponent, XComponent, XEmitter, XListen, xquerySelector, xquerySelectorAll } from '../../../index';
+import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, querySelectorAll } from '../../../index';
 
-@XComponent({
+@Component({
   selector: 'my-button',
   template: html`
 		<span>button</span>
@@ -14,17 +14,17 @@ import { css, html, XButtonComponent, XComponent, XEmitter, XListen, xquerySelec
 		}
 	`,
 })
-class MyButtonComponent extends XButtonComponent {
+class MyButtonComponent extends ButtonComponent {
 
   constructor() {
     super();
   }
-  @XEmitter('bang')
-  @XListen('click')
+  @Emitter('bang')
+  @Listen('click')
   public onClick(event) {
 			this.emitter.broadcast('bang');
   }
-  @XListen('keyup')
+  @Listen('keyup')
   public onKeyUp(event) {
     if (event.key === 'Enter') {
       this.emitter.broadcast('bang');

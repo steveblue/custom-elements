@@ -1,499 +1,499 @@
-import { xattachDOM, xattachShadow, xattachStyle } from './../element/index';
+import { attachDOM, attachShadow, attachStyle } from './../element/index';
 
-export class XElement extends HTMLElement {
+export class Element extends HTMLElement {
   constructor() {
     super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-
-export class XCustomElement extends HTMLElement {
-  constructor() {
-    super();
-    xattachShadow(this, { mode: 'open' });
+    attachDOM(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
 
-export class XAllCollectionComponent extends HTMLAllCollection {
+export class CustomElement extends HTMLElement {
   constructor() {
     super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XAnchorComponent extends HTMLAnchorElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XAreaComponent extends HTMLAreaElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XAudioComponent extends HTMLAudioElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XBRComponent extends HTMLBRElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XBodyComponent extends HTMLBodyElement {
-  constructor() {
-    super();
-    xattachShadow(this, { mode: 'open' });
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XButtonComponent extends HTMLButtonElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XCanvasComponent extends HTMLCanvasElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XCollectionComponent extends HTMLCollection {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XContentComponent extends HTMLContentElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XDListComponent extends HTMLDListElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XDataComponent extends HTMLDataElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XDataListComponent extends HTMLDataListElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XDetailsComponent extends HTMLDetailsElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XDialogComponent extends HTMLDialogElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
+    attachShadow(this, { mode: 'open' });
     if (this.onInit) { this.onInit(); }
   }
 }
 
-export class XDivComponent extends HTMLDivElement {
+export class AllCollectionComponent extends HTMLAllCollection {
   constructor() {
     super();
-    xattachShadow(this, { mode: 'open' });
     if (this.onInit) { this.onInit(); }
   }
 }
-// export class XDocumentComponent extends HTMLDocumentElement {
+export class AnchorComponent extends HTMLAnchorElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class AreaComponent extends HTMLAreaElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class AudioComponent extends HTMLAudioElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class BRComponent extends HTMLBRElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class BodyComponent extends HTMLBodyElement {
+  constructor() {
+    super();
+    attachShadow(this, { mode: 'open' });
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ButtonComponent extends HTMLButtonElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class CanvasComponent extends HTMLCanvasElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class CollectionComponent extends HTMLCollection {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ContentComponent extends HTMLContentElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class DListComponent extends HTMLDListElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class DataComponent extends HTMLDataElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class DataListComponent extends HTMLDataListElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class DetailsComponent extends HTMLDetailsElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class DialogComponent extends HTMLDialogElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+
+export class DivComponent extends HTMLDivElement {
+  constructor() {
+    super();
+    attachShadow(this, { mode: 'open' });
+    if (this.onInit) { this.onInit(); }
+  }
+}
+// export class DocumentComponent extends HTMLDocumentElement {
 //     constructor() {
 //         super();
-//         xattachShadow(this);
+//         attachShadow(this);
 //     }
 // }
-export class XEmbedComponent extends HTMLEmbedElement {
+export class EmbedComponent extends HTMLEmbedElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XFieldSetComponent extends HTMLFieldSetElement {
+export class FieldSetComponent extends HTMLFieldSetElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XFormControlsComponent extends HTMLFormControlsCollection {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XFormComponent extends HTMLFormElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XHRComponent extends HTMLHRElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XHeadComponent extends HTMLHeadElement {
+export class FormControlsComponent extends HTMLFormControlsCollection {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XHeadingComponent extends HTMLHeadingElement {
+export class FormComponent extends HTMLFormElement {
   constructor() {
     super();
-    xattachShadow(this, { mode: 'open' });
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XHtmlComponent extends HTMLHtmlElement {
+export class HRComponent extends HTMLHRElement {
   constructor() {
     super();
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XIFrameComponent extends HTMLIFrameElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XImageComponent extends HTMLImageElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XInputComponent extends HTMLInputElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XLIComponent extends HTMLLIElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XLabelComponent extends HTMLLabelElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XLegendComponent extends HTMLLegendElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XLinkComponent extends HTMLLinkElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XMapComponent extends HTMLMapElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-
-export class XMediaComponent extends HTMLMediaElement {
+export class HeadComponent extends HTMLHeadElement {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XMenuComponent extends HTMLMenuElement {
+export class HeadingComponent extends HTMLHeadingElement {
+  constructor() {
+    super();
+    attachShadow(this, { mode: 'open' });
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class HtmlComponent extends HTMLHtmlElement {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XMetaComponent extends HTMLMetaElement {
+export class IFrameComponent extends HTMLIFrameElement {
   constructor() {
     super();
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XMeterComponent extends HTMLMeterElement {
+export class ImageComponent extends HTMLImageElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XModComponent extends HTMLModElement {
+export class InputComponent extends HTMLInputElement {
   constructor() {
     super();
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XOListComponent extends HTMLOListElement {
+export class LIComponent extends HTMLLIElement {
   constructor() {
     super();
-    xattachDOM(this);
-    xattachStyle(this);
+    attachDOM(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XObjectComponent extends HTMLObjectElement {
+export class LabelComponent extends HTMLLabelElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachDOM(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XOptGroupComponent extends HTMLOptGroupElement {
+export class LegendComponent extends HTMLLegendElement {
   constructor() {
     super();
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XOptionComponent extends HTMLOptionElement {
+export class LinkComponent extends HTMLLinkElement {
   constructor() {
     super();
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XOptionsCollectionComponent extends HTMLOptionsCollection {
+export class MapComponent extends HTMLMapElement {
   constructor() {
     super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XOutputComponent extends HTMLOutputElement {
-  constructor() {
-    super();
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XParagraphComponent extends HTMLParagraphElement {
-  constructor() {
-    super();
-    xattachShadow(this, { mode: 'open' });
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XParamComponent extends HTMLParamElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XPictureComponent extends HTMLPictureElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XPreComponent extends HTMLPreElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XProgressComponent extends HTMLProgressElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XQuoteComponent extends HTMLQuoteElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XScriptComponent extends HTMLScriptElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XSelectComponent extends HTMLSelectElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XShadowComponent extends HTMLShadowElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XSlotComponent extends HTMLSlotElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XSourceComponent extends HTMLSourceElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XSpanComponent extends HTMLSpanElement {
-  constructor() {
-    super();
-    xattachShadow(this, { mode: 'open' });
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XStyleComponent extends HTMLStyleElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTableCaptionComponent extends HTMLTableCaptionElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTableCellComponent extends HTMLTableCellElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTableColComponent extends HTMLTableColElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTableComponent extends HTMLTableElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
+    attachDOM(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
 
-export class XTableRowComponent extends HTMLTableRowElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTableSectionComponent extends HTMLTableSectionElement {
-  constructor() {
-    super();
-    xattachDOM(this);
-    xattachStyle(this);
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTemplateComponent extends HTMLTemplateElement {
+export class MediaComponent extends HTMLMediaElement {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
-// export class XTextareaComponent extends HTMLTextareaElement {
+export class MenuComponent extends HTMLMenuElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class MetaComponent extends HTMLMetaElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class MeterComponent extends HTMLMeterElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ModComponent extends HTMLModElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class OListComponent extends HTMLOListElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ObjectComponent extends HTMLObjectElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class OptGroupComponent extends HTMLOptGroupElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class OptionComponent extends HTMLOptionElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class OptionsCollectionComponent extends HTMLOptionsCollection {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class OutputComponent extends HTMLOutputElement {
+  constructor() {
+    super();
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ParagraphComponent extends HTMLParagraphElement {
+  constructor() {
+    super();
+    attachShadow(this, { mode: 'open' });
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ParamComponent extends HTMLParamElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class PictureComponent extends HTMLPictureElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class PreComponent extends HTMLPreElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ProgressComponent extends HTMLProgressElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class QuoteComponent extends HTMLQuoteElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ScriptComponent extends HTMLScriptElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class SelectComponent extends HTMLSelectElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class ShadowComponent extends HTMLShadowElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class SlotComponent extends HTMLSlotElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class SourceComponent extends HTMLSourceElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class SpanComponent extends HTMLSpanElement {
+  constructor() {
+    super();
+    attachShadow(this, { mode: 'open' });
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class StyleComponent extends HTMLStyleElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TableCaptionComponent extends HTMLTableCaptionElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TableCellComponent extends HTMLTableCellElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TableColComponent extends HTMLTableColElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TableComponent extends HTMLTableElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+
+export class TableRowComponent extends HTMLTableRowElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TableSectionComponent extends HTMLTableSectionElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class TemplateComponent extends HTMLTemplateElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+// export class TextareaComponent extends HTMLTextareaElement {
 //     constructor() {
 //         super();
 //     }
 // }
-export class XTimeComponent extends HTMLTimeElement {
+export class TimeComponent extends HTMLTimeElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XTitleComponent extends HTMLTitleElement {
-  constructor() {
-    super();
-    if (this.onInit) { this.onInit(); }
-  }
-}
-export class XTrackComponent extends HTMLTrackElement {
+export class TitleComponent extends HTMLTitleElement {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XUListComponent extends HTMLUListElement {
+export class TrackComponent extends HTMLTrackElement {
   constructor() {
     super();
-    xattachDOM(this);
-    xattachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }
-export class XUnknownComponent extends HTMLUnknownElement {
+export class UListComponent extends HTMLUListElement {
+  constructor() {
+    super();
+    attachDOM(this);
+    attachStyle(this);
+    if (this.onInit) { this.onInit(); }
+  }
+}
+export class UnknownComponent extends HTMLUnknownElement {
   constructor() {
     super();
     if (this.onInit) { this.onInit(); }
   }
 }
 
-export class XVideoComponent extends HTMLVideoElement {
+export class VideoComponent extends HTMLVideoElement {
   constructor() {
     super();
-    xattachStyle(this);
+    attachStyle(this);
     if (this.onInit) { this.onInit(); }
   }
 }

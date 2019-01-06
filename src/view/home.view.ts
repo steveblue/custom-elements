@@ -1,6 +1,6 @@
-import { css, html, XComponent, XCustomElement } from './../index';
+import { css, html, Component, Listen, CustomElement } from './../index';
 
-@XComponent({
+@Component({
   selector: 'home-view',
   template: html`
 		<h3>Custom Elements</h3>
@@ -69,10 +69,16 @@ import { css, html, XComponent, XCustomElement } from './../index';
         [is=my-input]{background:#181818;border:0;color:#fff}
 	`,
 })
-class HomeView extends XCustomElement {
+class HomeView extends CustomElement {
 
   constructor() {
     super();
+  }
+
+  @Listen('bang')
+  public onBang(event) {
+		console.log(event);
+    //this.get  Attribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
   }
 
 }

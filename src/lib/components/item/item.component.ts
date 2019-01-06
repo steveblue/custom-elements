@@ -1,6 +1,6 @@
-import { css, html, XComponent, XCustomElement, XListen } from '../../../index';
+import { css, html, Component, CustomElement, Listen } from '../../../index';
 
-@XComponent({
+@Component({
   selector: 'my-item',
   template: html`
 		<p>
@@ -19,11 +19,11 @@ import { css, html, XComponent, XCustomElement, XListen } from '../../../index';
 		}
 	`,
 })
-class MyItemComponent extends XCustomElement {
+class MyItemComponent extends CustomElement {
   constructor() {
     super();
   }
-  @XListen('bang', 'default')
+  @Listen('bang', 'default')
   public onBang(event) {
     this.getAttribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
   }

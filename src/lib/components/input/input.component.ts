@@ -1,6 +1,6 @@
-import { css, XComponent, XInputComponent, XListen } from '../../../index';
+import { css, Component, InputComponent, Listen } from '../../../index';
 
-@XComponent({
+@Component({
   selector: 'my-input',
   style: css`
 		:host {
@@ -10,11 +10,11 @@ import { css, XComponent, XInputComponent, XListen } from '../../../index';
 		}
 	`,
 })
-class MyInputComponent extends XInputComponent {
+class MyInputComponent extends InputComponent {
   constructor() {
     super();
   }
-  @XListen('focus')
+  @Listen('focus')
   public onFocus(event) {
     this.value = 'input';
   }
