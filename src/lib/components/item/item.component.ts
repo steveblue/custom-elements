@@ -23,11 +23,10 @@ class MyItemComponent extends XCustomElement {
   constructor() {
     super();
   }
-  @XListen('bang')
+  @XListen('bang', 'default')
   public onBang(event) {
     this.getAttribute('state') === '--selected' ? this.setAttribute('state', '') : this.setAttribute('state', '--selected');
   }
-
 }
 
 customElements.define('my-item', MyItemComponent);

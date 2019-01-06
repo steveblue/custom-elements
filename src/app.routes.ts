@@ -5,5 +5,5 @@ export interface RouteConfig {
   component: string;
 }
 
-export const routeConfig: RouteConfig[] = [{ path: '/',     component: 'home-view' },
-                                           {path: '/chapter-1',  component: 'chapter1-view'}];
+export const routeConfig: RouteConfig[] = [{ path: '/', component: 'home-view' },
+                                           { path: '/chapter-1', component: 'chapter1-view' }];

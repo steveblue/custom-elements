@@ -22,18 +22,12 @@ class MyButtonComponent extends XButtonComponent {
   @XEmitter('bang')
   @XListen('click')
   public onClick(event) {
-    const bang = this.emitter.get('bang');
-    xquerySelectorAll('my-item').forEach((elem: Element) => {
-      elem.emitter.emit(bang);
-    });
+			this.emitter.broadcast('bang');
   }
   @XListen('keyup')
   public onKeyUp(event) {
     if (event.key === 'Enter') {
-      const bang = this.emitter.get('bang');
-      xquerySelectorAll('my-item').forEach((elem: Element) => {
-        elem.emitter.emit(bang);
-      });
+      this.emitter.broadcast('bang');
     }
   }
 }

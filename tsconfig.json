@@ -7,7 +7,8 @@
     "outDir": "./dist",
     "target": "ES2015",
     "typeRoots": [ "node_modules/@types" ],
-    "types" : ["reflect-metadata"]
+    "types" : ["reflect-metadata"],
+    "sourceMap": true
   },
   "include": [
     "./src/**/*.ts"
