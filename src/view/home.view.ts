@@ -6,10 +6,10 @@ import { css, html, Component, Listen, CustomElement } from './../index';
 		<h3>Custom Elements</h3>
     <my-list>
         <ul slot="menu">
-            <li><my-item><span slot="msg">Make</span></my-item></li>
-            <li><my-item><span slot="msg">Custom</span></my-item></li>
-            <li><my-item><span slot="msg">Elements</span></my-item></li>
-            <li><my-item><span slot="msg">Accessible</span></my-item></li>
+            <li><my-item><span slot="msg">Item 1</span></my-item></li>
+            <li><my-item><span slot="msg">Item 2</span></my-item></li>
+            <li><my-item><span slot="msg">Item 3</span></my-item></li>
+            <li><my-item><span slot="msg">Item 4</span></my-item></li>
         </ul>
     </my-list>
     <br />
