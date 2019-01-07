@@ -1,6 +1,6 @@
 import { attachDOM, attachShadow, attachStyle } from './../element/index';
 
-export class Element extends HTMLElement {
+export class PseudoElement extends HTMLElement {
   constructor() {
     super();
     attachDOM(this);
