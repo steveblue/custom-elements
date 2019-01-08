@@ -1,9 +1,9 @@
-import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, querySelectorAll } from '../../../index';
+import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, querySelectorAll, BoundNode, BoundModel } from '../../../index';
 
 @Component({
   selector: 'my-button',
   template: html`
-		<span>button</span>
+		{{message.cta}}
 	`,
   style: css`
 		:host {
@@ -16,9 +16,15 @@ import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, 
 })
 class MyButtonComponent extends ButtonComponent {
 
+  public message = {
+    cta: 'Click'
+  }
+
   constructor() {
     super();
+    this.setState('message', this.message);
   }
+
   @Emitter('bang', { bubbles: true, composed: true })
   @Listen('click')
   public onClick(event) {

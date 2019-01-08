@@ -10,6 +10,9 @@ interface ElementMeta {
   eventMap?: any;
 };
 
+const TEMPLATE_BIND_REGEX = /\{\{(\s*)(.*?)(\s*)\}\}/g;
+const BIND_SUFFIX = ' _state';
+
 const html = (...args) => {
   return args;
 };
@@ -65,13 +68,101 @@ class EventDispatcher {
     }
 }
 
+class BoundNode {
+  constructor (node) {
+    this.template = node.innerHTML;
+    this.node = node;
+  }
+  update(data) {
+    let tempTemplate = this.template.slice(0);
+    this.node.innerHTML = tempTemplate.replace(TEMPLATE_BIND_REGEX, (match, variable) => {
+      const lastProp = /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.')[1];
+      // return object in dot syntax /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2]
+      // TODO: convert dot syntax to computed property name, get tip (lastProp)
+      // access property by computed property name
+      return data.elementMeta.boundState['model' + BIND_SUFFIX]['message'+ ' __'][lastProp] || '';
+    });
+  }
+
+}
+
+class BoundModel {
+  constructor () {
+    const callbacks = [];
+    const data = {
+      onUpdate: function onUpdate(fn) {
+        callbacks.push(fn);
+      }
+    };
+    const proxy = new Proxy(data, {
+      set: function (target, property, value) {
+        target[property] = value;
+        callbacks.forEach((callback) => callback());
+        return true
+      }
+    });
+    return proxy;
+  }
+}
+
+function bindTemplate() {
+  if (!this.elementMeta) this.elementMeta = {};
+  this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+  this.elementMeta.boundState = {
+      ['node' + BIND_SUFFIX]: new BoundNode(this),
+      ['model' + BIND_SUFFIX]: new BoundModel()
+  }
+  this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
+      this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
+  });
+}
+
+function setState(state: string, model: any) {
+  // TODO: convert "state" property to computed property name
+  this.elementMeta.boundState['model' + BIND_SUFFIX]['message'+ ' __'] = model;
+}
+
 function compileTemplate(elementMeta: ElementMeta, target: any) {
   target.prototype.elementMeta = Object.assign({}, elementMeta);
   target.prototype.elementMeta.eventMap = {};
   target.prototype.template = document.createElement('template');
   target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
-  target.prototype.getEvent = function(eventName: string) { return this.elementMeta.events[eventName]; };
-  target.prototype.setEvent = function(eventName: string, eventModel: Event) { return this.elementMeta.events[eventName] = eventModel; };
+  target.prototype.getChildNodes = getChildNodes;
+  target.prototype.bindTemplate = bindTemplate;
+  target.prototype.setState = setState;
+}
+
+function getChildNodes() {
+    function getChildren(node: Element, path: Element[] = [], result: Element[] = []){
+        if(!node.children.length)
+            result.push(path.concat(node));
+        for(const child of node.children)
+            getChildren(child, path.concat(child), result);
+        return result;
+    }
+   const nodes : Element[] = getChildren(this, []).reduce((nodes, curr) => {
+     return nodes.concat(curr);
+   },[]);
+   return nodes.filter((item, index) => { return nodes.indexOf(item) >= index; });
+}
+
+function bindTemplateNodes() {
+  if (!this.elementMeta) this.elementMeta = {};
+   this.elementMeta.boundNodes = this.getChildNodes()
+                                .map((node: Element) => {
+                                  if (!node.elementMeta) node.elementMeta = {};
+                                  node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+                                  node.elementMeta.boundState = {
+                                      ['node' + BIND_SUFFIX]: new BoundNode(node),
+                                      ['model' + BIND_SUFFIX]: new BoundModel()
+                                  }
+                                  node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
+                                      node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
+                                  });
+                                  node.setState = setState;
+                                  return node;
+                                });
+
 }
 
 function Component(attributes: ElementMeta) {
@@ -150,6 +241,8 @@ function Listen(eventName: string, channelName?: string) {
 export {
   ElementMeta,
   EventDispatcher,
+  BoundNode,
+  BoundModel,
   Component,
   Emitter,
   Listen,
