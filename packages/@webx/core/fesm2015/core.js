@@ -1,3 +1,5 @@
+const TEMPLATE_BIND_REGEX = /\{\{(\s*)(.*?)(\s*)\}\}/g;
+const BIND_SUFFIX = ' _state';
 const html = (...args) => {
     return args;
 };
@@ -42,13 +44,73 @@ class EventDispatcher {
         delete this.channels[name];
     }
 }
+class BoundNode {
+    constructor(node) {
+        this.template = node.innerHTML;
+        this.node = node;
+    }
+    update(data) {
+        let tempTemplate = this.template.slice(0);
+        this.node.innerHTML = tempTemplate.replace(TEMPLATE_BIND_REGEX, (match, variable) => {
+            const lastProp = /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.')[1];
+            return data.elementMeta.boundState['model' + BIND_SUFFIX]['message' + ' __'][lastProp] || '';
+        });
+    }
+}
+class BoundModel {
+    constructor() {
+        const callbacks = [];
+        const data = {
+            onUpdate: function onUpdate(fn) {
+                callbacks.push(fn);
+            }
+        };
+        const proxy = new Proxy(data, {
+            set: function (target, property, value) {
+                target[property] = value;
+                callbacks.forEach((callback) => callback());
+                return true;
+            }
+        });
+        return proxy;
+    }
+}
+function bindTemplate() {
+    if (!this.elementMeta)
+        this.elementMeta = {};
+    this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+    this.elementMeta.boundState = {
+        ['node' + BIND_SUFFIX]: new BoundNode(this),
+        ['model' + BIND_SUFFIX]: new BoundModel()
+    };
+    this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(() => {
+        this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
+    });
+}
+function setState(state, model) {
+    this.elementMeta.boundState['model' + BIND_SUFFIX]['message' + ' __'] = model;
+}
 function compileTemplate(elementMeta, target) {
     target.prototype.elementMeta = Object.assign({}, elementMeta);
     target.prototype.elementMeta.eventMap = {};
     target.prototype.template = document.createElement('template');
     target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
-    target.prototype.getEvent = function (eventName) { return this.elementMeta.events[eventName]; };
-    target.prototype.setEvent = function (eventName, eventModel) { return this.elementMeta.events[eventName] = eventModel; };
+    target.prototype.getChildNodes = getChildNodes;
+    target.prototype.bindTemplate = bindTemplate;
+    target.prototype.setState = setState;
+}
+function getChildNodes() {
+    function getChildren(node, path = [], result = []) {
+        if (!node.children.length)
+            result.push(path.concat(node));
+        for (const child of node.children)
+            getChildren(child, path.concat(child), result);
+        return result;
+    }
+    const nodes = getChildren(this, []).reduce((nodes, curr) => {
+        return nodes.concat(curr);
+    }, []);
+    return nodes.filter((item, index) => { return nodes.indexOf(item) >= index; });
 }
 function Component(attributes) {
     if (!attributes) {
@@ -116,11 +178,13 @@ function attachShadow(instance, options) {
     const t = document.createElement('template');
     t.innerHTML = instance.template;
     shadowRoot.appendChild(t.content.cloneNode(true));
+    instance.bindTemplate();
 }
 function attachDOM(instance, options) {
     const t = document.createElement('template');
     t.innerHTML = instance.elementMeta.template;
     instance.appendChild(t.content.cloneNode(true));
+    instance.bindTemplate();
 }
 function attachStyle(instance, options) {
     const id = `${instance.elementMeta.selector}`;
@@ -153,7 +217,7 @@ function getElementIndex(el) {
     return getSiblings(el).indexOf(el);
 }
 
-class Element extends HTMLElement {
+class PseudoElement extends HTMLElement {
     constructor() {
         super();
         attachDOM(this);
@@ -776,4 +840,4 @@ class VideoComponent extends HTMLVideoElement {
     }
 }
 
-export { EventDispatcher, Component, Emitter, Listen, compileTemplate, html, css, noop, Element, CustomElement, AllCollectionComponent, AnchorComponent, AreaComponent, AudioComponent, BRComponent, BodyComponent, ButtonComponent, CanvasComponent, CollectionComponent, ContentComponent, DListComponent, DataComponent, DataListComponent, DetailsComponent, DialogComponent, DivComponent, EmbedComponent, FieldSetComponent, FormControlsComponent, FormComponent, HRComponent, HeadComponent, HeadingComponent, HtmlComponent, IFrameComponent, ImageComponent, InputComponent, LIComponent, LabelComponent, LegendComponent, LinkComponent, MapComponent, MediaComponent, MenuComponent, MetaComponent, MeterComponent, ModComponent, OListComponent, ObjectComponent, OptGroupComponent, OptionComponent, OptionsCollectionComponent, OutputComponent, ParagraphComponent, ParamComponent, PictureComponent, PreComponent, ProgressComponent, QuoteComponent, ScriptComponent, SelectComponent, ShadowComponent, SlotComponent, SourceComponent, SpanComponent, StyleComponent, TableCaptionComponent, TableCellComponent, TableColComponent, TableComponent, TableRowComponent, TableSectionComponent, TemplateComponent, TimeComponent, TitleComponent, TrackComponent, UListComponent, UnknownComponent, VideoComponent, attachDOM, attachStyle, attachShadow, getSiblings, getElementIndex, getParent, querySelector, querySelectorAll };
+export { EventDispatcher, BoundNode, BoundModel, Component, Emitter, Listen, compileTemplate, html, css, noop, PseudoElement, CustomElement, AllCollectionComponent, AnchorComponent, AreaComponent, AudioComponent, BRComponent, BodyComponent, ButtonComponent, CanvasComponent, CollectionComponent, ContentComponent, DListComponent, DataComponent, DataListComponent, DetailsComponent, DialogComponent, DivComponent, EmbedComponent, FieldSetComponent, FormControlsComponent, FormComponent, HRComponent, HeadComponent, HeadingComponent, HtmlComponent, IFrameComponent, ImageComponent, InputComponent, LIComponent, LabelComponent, LegendComponent, LinkComponent, MapComponent, MediaComponent, MenuComponent, MetaComponent, MeterComponent, ModComponent, OListComponent, ObjectComponent, OptGroupComponent, OptionComponent, OptionsCollectionComponent, OutputComponent, ParagraphComponent, ParamComponent, PictureComponent, PreComponent, ProgressComponent, QuoteComponent, ScriptComponent, SelectComponent, ShadowComponent, SlotComponent, SourceComponent, SpanComponent, StyleComponent, TableCaptionComponent, TableCellComponent, TableColComponent, TableComponent, TableRowComponent, TableSectionComponent, TemplateComponent, TimeComponent, TitleComponent, TrackComponent, UListComponent, UnknownComponent, VideoComponent, attachDOM, attachStyle, attachShadow, getSiblings, getElementIndex, getParent, querySelector, querySelectorAll };
