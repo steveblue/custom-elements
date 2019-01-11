@@ -3,7 +3,7 @@ import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, 
 @Component({
   selector: 'my-button',
   template: html`
-		{{message.cta}}
+		{{model}} {{another}}
 	`,
   style: css`
 		:host {
@@ -16,13 +16,18 @@ import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, 
 })
 class MyButtonComponent extends ButtonComponent {
 
-  public message = {
-    cta: 'Click'
-  }
+  public model = 'Click';
 
   constructor() {
     super();
-    this.setState('message', this.message);
+      this.model = this.another = Math.floor(Math.random() * Math.floor(1200));
+      this.setState('model');
+      this.setState('another');
+    setInterval(() => {
+      this.model = this.another = Math.floor(Math.random() * Math.floor(1200));
+      this.setState('model');
+      this.setState('another');
+    },10);
   }
 
   @Emitter('bang', { bubbles: true, composed: true })

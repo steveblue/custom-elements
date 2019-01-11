@@ -11,7 +11,7 @@ interface ElementMeta {
 };
 
 const TEMPLATE_BIND_REGEX = /\{\{(\s*)(.*?)(\s*)\}\}/g;
-const BIND_SUFFIX = ' _state';
+const BIND_SUFFIX = ' __state';
 
 const html = (...args) => {
   return args;
@@ -76,11 +76,7 @@ class BoundNode {
   update(data) {
     let tempTemplate = this.template.slice(0);
     this.node.innerHTML = tempTemplate.replace(TEMPLATE_BIND_REGEX, (match, variable) => {
-      const lastProp = /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.')[1];
-      // return object in dot syntax /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2]
-      // TODO: convert dot syntax to computed property name, get tip (lastProp)
-      // access property by computed property name
-      return data.elementMeta.boundState['model' + BIND_SUFFIX]['message'+ ' __'][lastProp] || '';
+      return data.elementMeta.boundState['model' + BIND_SUFFIX][/\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.').join('__')+ ' __'] || '';
     });
   }
 
@@ -118,8 +114,7 @@ function bindTemplate() {
 }
 
 function setState(state: string, model: any) {
-  // TODO: convert "state" property to computed property name
-  this.elementMeta.boundState['model' + BIND_SUFFIX]['message'+ ' __'] = model;
+  this.elementMeta.boundState['model' + BIND_SUFFIX][state.replace(/\./g, '__')+ ' __'] = model ? model : this[state];
 }
 
 function compileTemplate(elementMeta: ElementMeta, target: any) {
@@ -149,19 +144,19 @@ function getChildNodes() {
 function bindTemplateNodes() {
   if (!this.elementMeta) this.elementMeta = {};
    this.elementMeta.boundNodes = this.getChildNodes()
-                                .map((node: Element) => {
-                                  if (!node.elementMeta) node.elementMeta = {};
-                                  node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
-                                  node.elementMeta.boundState = {
-                                      ['node' + BIND_SUFFIX]: new BoundNode(node),
-                                      ['model' + BIND_SUFFIX]: new BoundModel()
-                                  }
-                                  node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
-                                      node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
-                                  });
-                                  node.setState = setState;
-                                  return node;
-                                });
+  .map((node: Element) => {
+    if (!node.elementMeta) node.elementMeta = {};
+    node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+    node.elementMeta.boundState = {
+        ['node' + BIND_SUFFIX]: new BoundNode(node),
+        ['model' + BIND_SUFFIX]: new BoundModel()
+    }
+    node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
+      node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
+    });
+    node.setState = setState;
+    return node;
+  });
 
 }
 
