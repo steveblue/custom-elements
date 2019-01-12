@@ -1,4 +1,4 @@
-import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, querySelectorAll, BoundNode, BoundModel } from '../../../index';
+import { css, html, ButtonComponent, Component, Emitter, Listen } from '../../../index';
 
 @Component({
   selector: 'my-button',
