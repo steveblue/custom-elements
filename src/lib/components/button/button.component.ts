@@ -3,7 +3,7 @@ import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, 
 @Component({
   selector: 'my-button',
   template: html`
-		{{model}} {{another}}
+		{{model}} {{another.prop.on.state}}
 	`,
   style: css`
 		:host {
@@ -16,18 +16,24 @@ import { css, html, ButtonComponent, Component, Emitter, Listen, querySelector, 
 })
 class MyButtonComponent extends ButtonComponent {
 
-  public model = 'Click';
 
   constructor() {
     super();
-      this.model = this.another = Math.floor(Math.random() * Math.floor(1200));
-      this.setState('model');
-      this.setState('another');
+
+    this.state.model = Math.floor(Math.random() * Math.floor(1200));
+    this.state.another = {
+      prop: {
+        on: {
+          state: Math.floor(Math.random() * Math.floor(1200))
+        }
+      }
+    };
+
     setInterval(() => {
-      this.model = this.another = Math.floor(Math.random() * Math.floor(1200));
-      this.setState('model');
-      this.setState('another');
+      this.state.model = Math.floor(Math.random() * Math.floor(1200));
+      this.state.another.prop.on.state = Math.floor(Math.random() * Math.floor(1200));
     },10);
+
   }
 
   @Emitter('bang', { bubbles: true, composed: true })

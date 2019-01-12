@@ -68,6 +68,21 @@ class EventDispatcher {
     }
 }
 
+Object.byString = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
+}
+
 class BoundNode {
   constructor (node) {
     this.template = node.innerHTML;
@@ -76,14 +91,13 @@ class BoundNode {
   update(data) {
     let tempTemplate = this.template.slice(0);
     this.node.innerHTML = tempTemplate.replace(TEMPLATE_BIND_REGEX, (match, variable) => {
-      return data.elementMeta.boundState['model' + BIND_SUFFIX][/\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.').join('__')+ ' __'] || '';
+      return Object.byString(data, /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2]) || '';
     });
   }
-
 }
 
 class BoundModel {
-  constructor () {
+  constructor (obj) {
     const callbacks = [];
     const data = {
       onUpdate: function onUpdate(fn) {
@@ -101,20 +115,30 @@ class BoundModel {
   }
 }
 
+class BoundHandler {
+  constructor(obj) {
+    this.model = obj;
+  }
+  set(target, key, value) {
+    target[key] = value;
+    this.model.elementMeta.boundState['node' + BIND_SUFFIX].update(this.model);
+    return true;
+  }
+}
+
 function bindTemplate() {
+
   if (!this.elementMeta) this.elementMeta = {};
   this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
   this.elementMeta.boundState = {
       ['node' + BIND_SUFFIX]: new BoundNode(this),
-      ['model' + BIND_SUFFIX]: new BoundModel()
+      ['model' + BIND_SUFFIX]: new BoundModel(this),
+      ['handler' + BIND_SUFFIX]: new BoundHandler(this)
   }
-  this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
-      this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
-  });
-}
-
-function setState(state: string, model: any) {
-  this.elementMeta.boundState['model' + BIND_SUFFIX][state.replace(/\./g, '__')+ ' __'] = model ? model : this[state];
+  this.state = new Proxy(this, this.elementMeta.boundState['handler' + BIND_SUFFIX]);
+  // this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
+  //   this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
+  // });
 }
 
 function compileTemplate(elementMeta: ElementMeta, target: any) {
@@ -124,7 +148,6 @@ function compileTemplate(elementMeta: ElementMeta, target: any) {
   target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
   target.prototype.getChildNodes = getChildNodes;
   target.prototype.bindTemplate = bindTemplate;
-  target.prototype.setState = setState;
 }
 
 function getChildNodes() {
@@ -146,18 +169,19 @@ function bindTemplateNodes() {
    this.elementMeta.boundNodes = this.getChildNodes()
   .map((node: Element) => {
     if (!node.elementMeta) node.elementMeta = {};
-    node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
-    node.elementMeta.boundState = {
-        ['node' + BIND_SUFFIX]: new BoundNode(node),
-        ['model' + BIND_SUFFIX]: new BoundModel()
-    }
-    node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
-      node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
-    });
-    node.setState = setState;
-    return node;
-  });
+      node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+      node.elementMeta.boundState = {
+          ['node' + BIND_SUFFIX]: new BoundNode(node),
+          ['model' + BIND_SUFFIX]: new BoundModel(node),
+          ['handler' + BIND_SUFFIX]: new BoundHandler(node)
+      }
+      node.state = new Proxy(node, node.elementMeta.boundState['handler' + BIND_SUFFIX]);
+      // node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
+      //   node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
+      // });
+      return node;
 
+    });
 }
 
 function Component(attributes: ElementMeta) {
