@@ -69,6 +69,7 @@ class EventDispatcher {
 }
 
 Object.byString = function(o, s) {
+    if(!s) return o;
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     var a = s.split('.');
@@ -96,25 +97,6 @@ class BoundNode {
   }
 }
 
-class BoundModel {
-  constructor (obj) {
-    const callbacks = [];
-    const data = {
-      onUpdate: function onUpdate(fn) {
-        callbacks.push(fn);
-      }
-    };
-    const proxy = new Proxy(data, {
-      set: function (target, property, value) {
-        target[property] = value;
-        callbacks.forEach((callback) => callback());
-        return true
-      }
-    });
-    return proxy;
-  }
-}
-
 class BoundHandler {
   constructor(obj) {
     this.model = obj;
@@ -127,18 +109,13 @@ class BoundHandler {
 }
 
 function bindTemplate() {
-
   if (!this.elementMeta) this.elementMeta = {};
   this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
   this.elementMeta.boundState = {
       ['node' + BIND_SUFFIX]: new BoundNode(this),
-      ['model' + BIND_SUFFIX]: new BoundModel(this),
       ['handler' + BIND_SUFFIX]: new BoundHandler(this)
   }
   this.state = new Proxy(this, this.elementMeta.boundState['handler' + BIND_SUFFIX]);
-  // this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
-  //   this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
-  // });
 }
 
 function compileTemplate(elementMeta: ElementMeta, target: any) {
@@ -172,13 +149,9 @@ function bindTemplateNodes() {
       node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
       node.elementMeta.boundState = {
           ['node' + BIND_SUFFIX]: new BoundNode(node),
-          ['model' + BIND_SUFFIX]: new BoundModel(node),
           ['handler' + BIND_SUFFIX]: new BoundHandler(node)
       }
       node.state = new Proxy(node, node.elementMeta.boundState['handler' + BIND_SUFFIX]);
-      // node.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(()=>{
-      //   node.elementMeta.boundState['node' + BIND_SUFFIX].update(node);
-      // });
       return node;
 
     });

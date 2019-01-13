@@ -3,7 +3,7 @@ import { css, html, ButtonComponent, Component, Emitter, Listen } from '../../..
 @Component({
   selector: 'my-button',
   template: html`
-		{{model}} {{another.prop.on.state}}
+   {{model}}
 	`,
   style: css`
 		:host {
@@ -21,17 +21,9 @@ class MyButtonComponent extends ButtonComponent {
     super();
 
     this.state.model = Math.floor(Math.random() * Math.floor(1200));
-    this.state.another = {
-      prop: {
-        on: {
-          state: Math.floor(Math.random() * Math.floor(1200))
-        }
-      }
-    };
 
     setInterval(() => {
       this.state.model = Math.floor(Math.random() * Math.floor(1200));
-      this.state.another.prop.on.state = Math.floor(Math.random() * Math.floor(1200));
     },10);
 
   }
