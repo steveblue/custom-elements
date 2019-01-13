@@ -2,15 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const TEMPLATE_BIND_REGEX = /\{\{(\s*)(.*?)(\s*)\}\}/g;
-const BIND_SUFFIX = ' _state';
-const html = (...args) => {
-    return args;
-};
-const css = (...args) => {
-    return args;
-};
-const noop = () => { };
 class EventDispatcher {
     constructor(context) {
         this.target = context;
@@ -48,6 +39,26 @@ class EventDispatcher {
         delete this.channels[name];
     }
 }
+
+const TEMPLATE_BIND_REGEX = /\{\{(\s*)(.*?)(\s*)\}\}/g;
+const BIND_SUFFIX = ' __state';
+Object.byString = function (o, s) {
+    if (!s)
+        return o;
+    s = s.replace(/\[(\w+)\]/g, '.$1');
+    s = s.replace(/^\./, '');
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        }
+        else {
+            return;
+        }
+    }
+    return o;
+};
 class BoundNode {
     constructor(node) {
         this.template = node.innerHTML;
@@ -56,52 +67,19 @@ class BoundNode {
     update(data) {
         let tempTemplate = this.template.slice(0);
         this.node.innerHTML = tempTemplate.replace(TEMPLATE_BIND_REGEX, (match, variable) => {
-            const lastProp = /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2].split('.')[1];
-            return data.elementMeta.boundState['model' + BIND_SUFFIX]['message' + ' __'][lastProp] || '';
+            return Object.byString(data, /\{\{(\s*)(.*?)(\s*)\}\}/.exec(match)[2]) || '';
         });
     }
 }
-class BoundModel {
-    constructor() {
-        const callbacks = [];
-        const data = {
-            onUpdate: function onUpdate(fn) {
-                callbacks.push(fn);
-            }
-        };
-        const proxy = new Proxy(data, {
-            set: function (target, property, value) {
-                target[property] = value;
-                callbacks.forEach((callback) => callback());
-                return true;
-            }
-        });
-        return proxy;
+class BoundHandler {
+    constructor(obj) {
+        this.model = obj;
     }
-}
-function bindTemplate() {
-    if (!this.elementMeta)
-        this.elementMeta = {};
-    this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
-    this.elementMeta.boundState = {
-        ['node' + BIND_SUFFIX]: new BoundNode(this),
-        ['model' + BIND_SUFFIX]: new BoundModel()
-    };
-    this.elementMeta.boundState['model' + BIND_SUFFIX].onUpdate(() => {
-        this.elementMeta.boundState['node' + BIND_SUFFIX].update(this);
-    });
-}
-function setState(state, model) {
-    this.elementMeta.boundState['model' + BIND_SUFFIX]['message' + ' __'] = model;
-}
-function compileTemplate(elementMeta, target) {
-    target.prototype.elementMeta = Object.assign({}, elementMeta);
-    target.prototype.elementMeta.eventMap = {};
-    target.prototype.template = document.createElement('template');
-    target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
-    target.prototype.getChildNodes = getChildNodes;
-    target.prototype.bindTemplate = bindTemplate;
-    target.prototype.setState = setState;
+    set(target, key, value) {
+        target[key] = value;
+        this.model.elementMeta.boundState['node' + BIND_SUFFIX].update(this.model);
+        return true;
+    }
 }
 function getChildNodes() {
     function getChildren(node, path = [], result = []) {
@@ -116,6 +94,92 @@ function getChildNodes() {
     }, []);
     return nodes.filter((item, index) => { return nodes.indexOf(item) >= index; });
 }
+function bindTemplate() {
+    if (!this.elementMeta)
+        this.elementMeta = {};
+    this.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+    this.elementMeta.boundState = {
+        ['node' + BIND_SUFFIX]: new BoundNode(this),
+        ['handler' + BIND_SUFFIX]: new BoundHandler(this)
+    };
+    this.state = new Proxy(this, this.elementMeta.boundState['handler' + BIND_SUFFIX]);
+}
+function compileTemplate(elementMeta, target) {
+    target.prototype.elementMeta = Object.assign({}, elementMeta);
+    target.prototype.elementMeta.eventMap = {};
+    target.prototype.template = document.createElement('template');
+    target.prototype.template = `<style>${elementMeta.style}</style>${elementMeta.template}`;
+    target.prototype.getChildNodes = getChildNodes;
+    target.prototype.bindTemplateNodes = bindTemplateNodes;
+    target.prototype.bindTemplate = bindTemplate;
+}
+function bindTemplateNodes() {
+    if (!this.elementMeta)
+        this.elementMeta = {};
+    this.elementMeta.boundNodes = this.getChildNodes()
+        .map((node) => {
+        if (!node.elementMeta)
+            node.elementMeta = {};
+        node.elementMeta.templateRegex = TEMPLATE_BIND_REGEX;
+        node.elementMeta.boundState = {
+            ['node' + BIND_SUFFIX]: new BoundNode(node),
+            ['handler' + BIND_SUFFIX]: new BoundHandler(node)
+        };
+        node.state = new Proxy(node, node.elementMeta.boundState['handler' + BIND_SUFFIX]);
+        return node;
+    });
+}
+function getParent(el) {
+    return el.parentNode;
+}
+function querySelector(selector) {
+    return document.querySelector(selector);
+}
+function querySelectorAll(selector) {
+    return Array.from(document.querySelectorAll(selector));
+}
+function getSiblings(el, filter) {
+    if (!filter) {
+        filter = [];
+    }
+    return Array.from(getParent(el).children).filter((elem) => {
+        return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
+    });
+}
+function getElementIndex(el) {
+    return getSiblings(el).indexOf(el);
+}
+function attachShadow(instance, options) {
+    const shadowRoot = instance.attachShadow(options || {});
+    const t = document.createElement('template');
+    t.innerHTML = instance.template;
+    shadowRoot.appendChild(t.content.cloneNode(true));
+    instance.bindTemplate();
+}
+function attachDOM(instance, options) {
+    const t = document.createElement('template');
+    t.innerHTML = instance.elementMeta.template;
+    instance.appendChild(t.content.cloneNode(true));
+    instance.bindTemplate();
+}
+function attachStyle(instance, options) {
+    const id = `${instance.elementMeta.selector}`;
+    if (!document.getElementById(`${id}-x`)) {
+        const t = document.createElement('style');
+        t.setAttribute('id', `${id}-x`);
+        t.innerText = instance.elementMeta.style;
+        t.innerText = t.innerText.replace(/:host/gi, `[is=${id}]`);
+        document.head.appendChild(t);
+    }
+}
+
+const html = (...args) => {
+    return args;
+};
+const css = (...args) => {
+    return args;
+};
+const noop = () => { };
 function Component(attributes) {
     if (!attributes) {
         console.error('Component must include ElementMeta to compile');
@@ -177,50 +241,14 @@ function Listen(eventName, channelName) {
     };
 }
 
-function attachShadow(instance, options) {
-    const shadowRoot = instance.attachShadow(options || {});
-    const t = document.createElement('template');
-    t.innerHTML = instance.template;
-    shadowRoot.appendChild(t.content.cloneNode(true));
-    instance.bindTemplate();
-}
-function attachDOM(instance, options) {
-    const t = document.createElement('template');
-    t.innerHTML = instance.elementMeta.template;
-    instance.appendChild(t.content.cloneNode(true));
-    instance.bindTemplate();
-}
-function attachStyle(instance, options) {
-    const id = `${instance.elementMeta.selector}`;
-    if (!document.getElementById(`${id}-x`)) {
-        const t = document.createElement('style');
-        t.setAttribute('id', `${id}-x`);
-        t.innerText = instance.elementMeta.style;
-        t.innerText = t.innerText.replace(/:host/gi, `[is=${id}]`);
-        document.head.appendChild(t);
+class StructuralElement extends HTMLElement {
+    constructor() {
+        super();
+        if (this.onInit) {
+            this.onInit();
+        }
     }
 }
-function getParent(el) {
-    return el.parentNode;
-}
-function querySelector(selector) {
-    return document.querySelector(selector);
-}
-function querySelectorAll(selector) {
-    return Array.from(document.querySelectorAll(selector));
-}
-function getSiblings(el, filter) {
-    if (!filter) {
-        filter = [];
-    }
-    return Array.from(getParent(el).children).filter((elem) => {
-        return elem.tagName !== 'TEXT' && elem.tagName !== 'STYLE';
-    });
-}
-function getElementIndex(el) {
-    return getSiblings(el).indexOf(el);
-}
-
 class PseudoElement extends HTMLElement {
     constructor() {
         super();
@@ -845,15 +873,25 @@ class VideoComponent extends HTMLVideoElement {
 }
 
 exports.EventDispatcher = EventDispatcher;
-exports.BoundNode = BoundNode;
-exports.BoundModel = BoundModel;
+exports.attachDOM = attachDOM;
+exports.attachStyle = attachStyle;
+exports.attachShadow = attachShadow;
+exports.getSiblings = getSiblings;
+exports.getElementIndex = getElementIndex;
+exports.getParent = getParent;
+exports.querySelector = querySelector;
+exports.querySelectorAll = querySelectorAll;
+exports.getChildNodes = getChildNodes;
+exports.bindTemplate = bindTemplate;
+exports.bindTemplateNodes = bindTemplateNodes;
+exports.compileTemplate = compileTemplate;
 exports.Component = Component;
 exports.Emitter = Emitter;
 exports.Listen = Listen;
-exports.compileTemplate = compileTemplate;
 exports.html = html;
 exports.css = css;
 exports.noop = noop;
+exports.StructuralElement = StructuralElement;
 exports.PseudoElement = PseudoElement;
 exports.CustomElement = CustomElement;
 exports.AllCollectionComponent = AllCollectionComponent;
@@ -925,11 +963,3 @@ exports.TrackComponent = TrackComponent;
 exports.UListComponent = UListComponent;
 exports.UnknownComponent = UnknownComponent;
 exports.VideoComponent = VideoComponent;
-exports.attachDOM = attachDOM;
-exports.attachStyle = attachStyle;
-exports.attachShadow = attachShadow;
-exports.getSiblings = getSiblings;
-exports.getElementIndex = getElementIndex;
-exports.getParent = getParent;
-exports.querySelector = querySelector;
-exports.querySelectorAll = querySelectorAll;

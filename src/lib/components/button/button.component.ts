@@ -16,16 +16,9 @@ import { css, html, ButtonComponent, Component, Emitter, Listen } from '../../..
 })
 class MyButtonComponent extends ButtonComponent {
 
-
   constructor() {
     super();
-
-    this.state.model = Math.floor(Math.random() * Math.floor(1200));
-
-    setInterval(() => {
-      this.state.model = Math.floor(Math.random() * Math.floor(1200));
-    },10);
-
+    this.state.model = 'Click';
   }
 
   @Emitter('bang', { bubbles: true, composed: true })

@@ -1,5 +1,12 @@
 import { attachDOM, attachShadow, attachStyle } from './../element/index';
 
+export class StructuralElement extends HTMLElement {
+  constructor() {
+    super();
+    if (this.onInit) { this.onInit(); }
+  }
+}
+
 export class PseudoElement extends HTMLElement {
   constructor() {
     super();
